@@ -1,7 +1,5 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
 
-<script setup lang="ts"></script>
-
 <template>
-  <RouterView />
+    <h1>بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم</h1>
 </template>
