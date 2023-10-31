@@ -6,9 +6,9 @@
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["src/*"],
       "@layouts/*": ["src/@layouts/*"],
       "@layouts": ["src/@layouts"],
       "@core/*": ["src/@core/*"],
