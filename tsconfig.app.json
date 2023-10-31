@@ -8,7 +8,13 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@layouts/*": ["src/@layouts/*"],
+      "@layouts": ["src/@layouts"],
+      "@core/*": ["src/@core/*"],
+      "@core": ["src/@core"],
+      "@shared/*": ["src/@shared/*"],
+      "@shared": ["src/@shared"]
     }
   }
 }
