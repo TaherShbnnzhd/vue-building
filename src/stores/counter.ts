@@ -1,3 +1,5 @@
+/* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
+
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
