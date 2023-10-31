@@ -1,12 +1,13 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
-import { authService } from '@core/services/AuthService'
+
+import { useAuthentication } from '@core/services/UseAuthentication'
 
 import { BehaviorSubject } from 'rxjs'
 
 /** Handle sidemenu actions */
-export function sidemenuService() {
-  const { getAuthorizationToken } = authService()
+export function useSidemenu() {
+  const { getAuthorizationToken } = useAuthentication()
 
   /** Sidemenu state. */
   let state = true

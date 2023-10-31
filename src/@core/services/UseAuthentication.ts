@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs'
 import { delay } from 'rxjs/operators'
 
 /** Handle authentication like token, login and logout */
-export function authService() {
+export function useAuthentication() {
   /** Store the URL so we can redirect after logging in */
   const redirectUrl = ref('boz')
 
