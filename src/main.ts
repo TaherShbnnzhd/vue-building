@@ -14,3 +14,7 @@ app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
+// cannot use these import statements directly in a Vue component,
+// so should add in globalProperties.
+app.config.globalProperties.versionNumber = import.meta.env.PACKAGE_VERSION

@@ -5,6 +5,8 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+import packageJson from './package.json'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
@@ -19,5 +21,8 @@ export default defineConfig({
         additionalData: `@import "@/assets/scss/global.scss";`
       }
     }
+  },
+  define: {
+    'import.meta.env.PACKAGE_VERSION': JSON.stringify(packageJson.version)
   }
 })
