@@ -5,11 +5,13 @@ import { ref } from 'vue'
 import { Observable, of } from 'rxjs'
 import { delay } from 'rxjs/operators'
 
+/** Store the URL so we can redirect after logging in */
+const redirectUrl = ref('/')
+
+const hasAuthorization = ref(false)
+
 /** Handle authentication like token, login and logout */
 export function useAuthentication() {
-  /** Store the URL so we can redirect after logging in */
-  const redirectUrl = ref('boz')
-
   /**
    * Update redirectUrl
    * @param url redirect URL
@@ -23,7 +25,23 @@ export function useAuthentication() {
     const sessionStorageToken = sessionStorage.getItem('Token')
     const localStorageToken = localStorage.getItem('Token')
 
+    if (sessionStorageToken || localStorageToken) hasAuthorization.value = true
+
     return sessionStorageToken || localStorageToken || ''
+  }
+
+  /**
+   *  Set token if exists
+   * @param token token
+   * @param localStorageMode save in local storage
+   */
+  function setAuthorizationToken(token: string, localStorageMode = false) {
+    if (token) {
+      if (localStorageMode) localStorage.setItem('Token', 'token')
+      else sessionStorage.setItem('Token', 'token')
+
+      hasAuthorization.value = true
+    }
   }
 
   /**
@@ -43,8 +61,10 @@ export function useAuthentication() {
 
   return {
     redirectUrl,
+    hasAuthorization,
     setRedirectUrl,
     getAuthorizationToken,
+    setAuthorizationToken,
     logIn,
     logOut
   }

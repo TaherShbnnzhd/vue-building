@@ -6,12 +6,12 @@ import { computed } from 'vue'
 import { BehaviorSubject } from 'rxjs'
 import { ref } from 'vue'
 
+/** Sidemenu state. */
+const state = ref(true)
+
 /** Handle sidemenu actions */
 export function useSidemenu() {
-  const { getAuthorizationToken } = useAuthentication()
-
-  /** Sidemenu state. */
-  let state = true
+  const { hasAuthorization } = useAuthentication()
 
   /** Sidemenu menu name. */
   const menu = new BehaviorSubject<string>('')
@@ -23,7 +23,7 @@ export function useSidemenu() {
     },
     set(v: boolean) {
       if (v) close()
-      else if (getAuthorizationToken()) {
+      else if (hasAuthorization) {
         menu.next(menu.getValue())
         open()
       }
@@ -33,24 +33,24 @@ export function useSidemenu() {
   })
 
   /** Open sidemenu. */
-  function open() {
-    state = false
+  function openSidemenu() {
+    state.value = false
   }
 
   /** Close sidemenu. */
-  function close() {
-    state = true
+  function closeSidemenu() {
+    state.value = true
   }
 
   /** Sidemenu close state. */
-  function isClose() {
+  function isClosedSidmenu() {
     return state
   }
   return {
     menu,
     offcanvasMode,
-    open,
-    close,
-    isClose
+    openSidemenu,
+    closeSidemenu,
+    isClosedSidmenu
   }
 }

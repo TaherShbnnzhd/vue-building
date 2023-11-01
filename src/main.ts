@@ -21,15 +21,20 @@ import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
 import DialogService from 'primevue/dialogservice'
+import Ripple from 'primevue/ripple'
+import { primeVueConfiguration } from './assets/configuration/primeVue'
+
 
 const app = createApp(App)
 
 app.use(createPinia())
-app.use(PrimeVue, { ripple: true })
-app.use(ConfirmationService);
-app.use(ToastService);
+app.use(PrimeVue, primeVueConfiguration)
+app.use(ConfirmationService)
+app.use(ToastService)
 app.use(DialogService)
 app.use(router)
+
+app.directive('ripple', Ripple)
 
 app.mount('#app')
 

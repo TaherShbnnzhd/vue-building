@@ -13,7 +13,7 @@ import LayoutLoading from './components/LayoutLoading.vue'
 
 import Toast from 'primevue/toast'
 
-const sidemenu = useSidemenu()
+const { offcanvasMode, isClosedSidmenu } = useSidemenu()
 
 /** Current application version. */
 const version = getCurrentInstance()?.appContext?.config?.globalProperties?.versionNumber
@@ -50,8 +50,8 @@ function onResize() {
  * @param innerWidth windows width
  */
 function offcanvasModeDetection(innerWidth: number) {
-  if (innerWidth < 991) sidemenu.offcanvasMode.value = true
-  else sidemenu.offcanvasMode.value = false
+  if (innerWidth < 991) offcanvasMode.value = true
+  else offcanvasMode.value = false
 }
 </script>
 
@@ -76,8 +76,8 @@ function offcanvasModeDetection(innerWidth: number) {
         <div
           class="content-body"
           :class="{
-            full: sidemenu.offcanvasMode || sidemenu.isClose(),
-            compact: !sidemenu.offcanvasMode && !sidemenu.isClose()
+            full: offcanvasMode || isClosedSidmenu(),
+            compact: !offcanvasMode && !isClosedSidmenu()
           }"
         >
           <!-- page loading screen -->
@@ -87,7 +87,7 @@ function offcanvasModeDetection(innerWidth: number) {
           <!-- / Page loading screen -->
 
           <!-- http error message -->
-          <Toast key="httpErrorMessage" position="bottom-left" />
+          <Toast position="bottom-left" />
           <!-- / Http error message -->
 
           <!-- route content viewbox -->

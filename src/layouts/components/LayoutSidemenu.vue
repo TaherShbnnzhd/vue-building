@@ -6,17 +6,11 @@ import { ref, onBeforeMount, onMounted } from 'vue'
 import { useSidemenu } from '../services/UseSidemenu'
 import type { Menu } from '../LayoutTypes'
 
-const sidemenu = useSidemenu()
-const authentication = useAuthentication()
-
-/** Side menu offcanvas mode state. */
-const offcanvas = ref(false)
+const { isClosedSidmenu, closeSidemenu, openSidemenu, menu, offcanvasMode } = useSidemenu()
+const { hasAuthorization } = useAuthentication()
 
 /** List of menus. */
 const menuList = ref<Menu[]>(getMenuItems())
-
-/** Current active menu name. */
-const currentActiveMenu = ref('')
 
 const menuItems = ref<HTMLAnchorElement[] | []>([])
 const menuItemsOffcanvas = ref<HTMLInputElement[] | []>([])
@@ -29,13 +23,13 @@ defineProps<{
 }>()
 
 onBeforeMount(() => {
-  if (!authentication.getAuthorizationToken()) sidemenu.close()
-  else sidemenu.open()
+  if (!hasAuthorization) closeSidemenu()
+  else openSidemenu()
 })
 
 onMounted(() => {
   // Expand active menu when login redirect user.
-  sidemenu.menu.subscribe((name) => {
+  menu.subscribe((name) => {
     collapseAllMenu()
     expandActiveMenu(name)
   })
@@ -165,14 +159,14 @@ function expandActiveMenu(name: string) {
 </script>
 
 <template>
-  <aside class="sidebar" :class="{ closed: sidemenu.isClose() }">
+  <aside class="sidebar" :class="{ closed: isClosedSidmenu() }">
     <!-- ردیف تب ها -->
     <div
       class="toggle-panel-active-tabs mx-3"
       :class="{
-        'tab-content-wide': sidemenu.offcanvasMode || sidemenu.isClose(),
-        'tab-content-compact': !sidemenu.offcanvasMode && !sidemenu.isClose(),
-        'tab-content-close': !authentication.getAuthorizationToken()
+        'tab-content-wide': offcanvasMode || isClosedSidmenu(),
+        'tab-content-compact': !offcanvasMode && !isClosedSidmenu(),
+        'tab-content-close': !hasAuthorization
       }"
     >
       <!-- <block-active-tabs-bar></block-active-tabs-bar> -->
@@ -182,23 +176,23 @@ function expandActiveMenu(name: string) {
       <!-- حالت جم شونده -->
       <a
         class="toggle-panel-button"
-        :data-bs-toggle="sidemenu.offcanvasMode && 'offcanvas'"
-        :data-bs-target="sidemenu.offcanvasMode && '#offcanvasRight'"
-        :aria-controls="sidemenu.offcanvasMode && 'offcanvasRight'"
-        :class="{ closed: sidemenu.isClose() }"
-        @click="sidemenu.isClose() ? sidemenu.open() : sidemenu.close()"
+        :data-bs-toggle="offcanvasMode && 'offcanvas'"
+        :data-bs-target="offcanvasMode && '#offcanvasRight'"
+        :aria-controls="offcanvasMode ? 'offcanvasRight' : ''"
+        :class="{ closed: isClosedSidmenu() }"
+        @click="isClosedSidmenu() ? openSidemenu() : closeSidemenu()"
       >
         <div
           class="toggle-panel-button-icon"
           :class="{
-            closed: sidemenu.isClose(),
-            'no-icon': !authentication.getAuthorizationToken()
+            closed: isClosedSidmenu(),
+            'no-icon': !hasAuthorization
           }"
         >
           <i
             :class="{
-              mgc_menu_fill: sidemenu.offcanvasMode || sidemenu.isClose(),
-              mgc_more_2_fill: !sidemenu.offcanvasMode && !sidemenu.isClose()
+              mgc_menu_fill: offcanvasMode || isClosedSidmenu(),
+              mgc_more_2_fill: !offcanvasMode && !isClosedSidmenu()
             }"
           ></i>
         </div>
