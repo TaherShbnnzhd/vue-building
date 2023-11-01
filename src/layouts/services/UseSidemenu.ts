@@ -23,7 +23,7 @@ export function useSidemenu() {
     },
     set(v: boolean) {
       if (v) close()
-      else if (hasAuthorization) {
+      else if (hasAuthorization.value) {
         menu.next(menu.getValue())
         open()
       }

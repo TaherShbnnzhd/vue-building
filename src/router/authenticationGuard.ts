@@ -7,7 +7,7 @@ import router from '.'
 export const authenticationGuard = (to: RouteLocationNormalized) => {
   const { hasAuthorization, redirectUrl } = useAuthentication()
 
-  if (hasAuthorization) return true
+  if (hasAuthorization.value) return true
   else {
     redirectUrl.value = `${to.path.toString().replace(',', '/')}`
     router.push('/account/login')

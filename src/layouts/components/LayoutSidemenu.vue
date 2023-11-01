@@ -23,7 +23,7 @@ defineProps<{
 }>()
 
 onBeforeMount(() => {
-  if (!hasAuthorization) closeSidemenu()
+  if (!hasAuthorization.value) closeSidemenu()
   else openSidemenu()
 })
 
