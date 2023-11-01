@@ -2,15 +2,16 @@
 
 <script setup lang="ts">
 import { getCurrentInstance, onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue'
+import router from '@/router'
 
 import { useSidemenu } from './services/UseSidemenu'
 
 import LayoutFooter from './components/LayoutFooter.vue'
 import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutSidemenu from './components/LayoutSidemenu.vue'
+import LayoutLoading from './components/LayoutLoading.vue'
 
 import Toast from 'primevue/toast'
-import router from '@/router'
 
 const sidemenu = useSidemenu()
 
@@ -81,7 +82,7 @@ function offcanvasModeDetection(innerWidth: number) {
         >
           <!-- page loading screen -->
           <div class="loading-content">
-            <!-- <block-loading-element [visible]="loading"></block-loading-element> -->
+            <LayoutLoading :loading="loading" />
           </div>
           <!-- / Page loading screen -->
 
@@ -120,19 +121,15 @@ main {
     margin: 0 0 0 0;
 
     .compact-header {
-      // ::ng-deep {
-      //   .home-botton {
-      //     padding-right: var(--sidemenu-width);
-      //   }
-      // }
+      .home-botton {
+        padding-right: var(--sidemenu-width);
+      }
     }
 
     .compact-footer {
-      // ::ng-deep {
-      //   .copy-right {
-      //     padding-right: var(--sidemenu-width);
-      //   }
-      // }
+      .copy-right {
+        padding-right: var(--sidemenu-width);
+      }
     }
 
     .content {

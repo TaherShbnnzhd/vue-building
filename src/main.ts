@@ -19,13 +19,17 @@ import router from './router'
 
 import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
+import ToastService from 'primevue/toastservice'
+import DialogService from 'primevue/dialogservice'
 
 const app = createApp(App)
 
 app.use(createPinia())
+app.use(PrimeVue, { ripple: true })
+app.use(ConfirmationService);
+app.use(ToastService);
+app.use(DialogService)
 app.use(router)
-app.use(PrimeVue)
-app.use(ConfirmationService)
 
 app.mount('#app')
 
