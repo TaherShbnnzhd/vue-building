@@ -1,9 +1,10 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
-
 import { useAuthentication } from '@core/services/UseAuthentication'
+import { computed } from 'vue'
 
 import { BehaviorSubject } from 'rxjs'
+import { ref } from 'vue'
 
 /** Handle sidemenu actions */
 export function useSidemenu() {
@@ -15,7 +16,21 @@ export function useSidemenu() {
   /** Sidemenu menu name. */
   const menu = new BehaviorSubject<string>('')
 
-  let offcanvasMode = false
+  const _offcanvasMode = ref(false)
+  const offcanvasMode = computed({
+    get() {
+      return _offcanvasMode.value
+    },
+    set(v: boolean) {
+      if (v) close()
+      else if (getAuthorizationToken()) {
+        menu.next(menu.getValue())
+        open()
+      }
+
+      _offcanvasMode.value = v
+    }
+  })
 
   /** Open sidemenu. */
   function open() {
@@ -31,27 +46,11 @@ export function useSidemenu() {
   function isClose() {
     return state
   }
-
-  function getOffcanvasMode() {
-    return offcanvasMode
-  }
-
-  function setOffcanvasMode(value: boolean) {
-    if (value) close()
-    else if (getAuthorizationToken()) {
-      menu.next(menu.getValue())
-      open()
-    }
-
-    offcanvasMode = value
-  }
-
   return {
     menu,
+    offcanvasMode,
     open,
     close,
-    isClose,
-    getOffcanvasMode,
-    setOffcanvasMode
+    isClose
   }
 }

@@ -1,6 +1,15 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
 import './assets/main.css'
+import './styles/themes/light.scss'
+
+import 'bootstrap/dist/css/bootstrap.rtl.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.min.css'
+
+import 'primevue/resources/primevue.min.css'
+import 'primeicons/primeicons.css'
+
+import 'mingcute_icon/font/Mingcute.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -8,10 +17,15 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+import PrimeVue from 'primevue/config'
+import ConfirmationService from 'primevue/confirmationservice'
+
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(PrimeVue)
+app.use(ConfirmationService)
 
 app.mount('#app')
 
