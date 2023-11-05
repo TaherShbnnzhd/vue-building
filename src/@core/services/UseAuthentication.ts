@@ -1,6 +1,6 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 import { Observable, of } from 'rxjs'
 import { delay } from 'rxjs/operators'
@@ -8,10 +8,10 @@ import { delay } from 'rxjs/operators'
 /** Store the URL so we can redirect after logging in */
 const redirectUrl = ref('/')
 
-const hasAuthorization = ref(false)
-
 /** Handle authentication like token, login and logout */
 export function useAuthentication() {
+  const hasAuthorization = computed(() => !!getAuthorizationToken())
+
   /**
    * Update redirectUrl
    * @param url redirect URL
@@ -22,10 +22,8 @@ export function useAuthentication() {
 
   /** Return token if exists */
   function getAuthorizationToken() {
-    const sessionStorageToken = sessionStorage.getItem('Token')
-    const localStorageToken = localStorage.getItem('Token')
-
-    if (sessionStorageToken || localStorageToken) hasAuthorization.value = true
+    const sessionStorageToken = sessionStorage.getItem('TOKEN')
+    const localStorageToken = localStorage.getItem('TOKEN')
 
     return sessionStorageToken || localStorageToken || ''
   }
@@ -37,10 +35,8 @@ export function useAuthentication() {
    */
   function setAuthorizationToken(token: string, localStorageMode = false) {
     if (token) {
-      if (localStorageMode) localStorage.setItem('Token', 'token')
-      else sessionStorage.setItem('Token', 'token')
-
-      hasAuthorization.value = true
+      if (localStorageMode) localStorage.setItem('TOKEN', 'TOKEN')
+      else sessionStorage.setItem('TOKEN', 'TOKEN')
     }
   }
 

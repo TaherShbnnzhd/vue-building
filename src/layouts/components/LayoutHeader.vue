@@ -3,19 +3,17 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
-import router from '@/router'
-
 import { useTheme } from '@core/services/UseTheme'
 import { useAuthentication } from '@core/services/UseAuthentication'
 import { useSidemenu } from '../services/UseSidemenu'
 
 import { useConfirm } from 'primevue/useconfirm'
 import ConfirmDialog from 'primevue/confirmdialog'
-import Button from 'primevue/button'
+import router from '@/router'
 
 const { currentTheme, switchTheme } = useTheme()
-const { closeSidemenu } = useSidemenu()
 const { logOut, hasAuthorization } = useAuthentication()
+const sidemenu = useSidemenu()
 const confirm = useConfirm()
 
 const _darkmode = ref(currentTheme.value === 'light-theme' ? false : true)
@@ -43,8 +41,8 @@ function toggleDarkMode(darkmode: boolean) {
 
 /** Sign out */
 function signout() {
-  //   storedRoutesService.clearStoredRoutes()
-  closeSidemenu()
+  //  storedRoutesService.clearStoredRoutes()
+  sidemenu.close()
   logOut()
   router.push('/account/login')
 }
@@ -70,7 +68,7 @@ function confirmSignout() {
   <header class="header py-1 px-4 d-flex align-items-center justify-content-between">
     <!-- mega menu -->
     <div class="menubar px-3">
-      <a class="home-botton fs-5 p-button-text p-button-rounded" @click="router.push('/')">
+      <a class="home-botton fs-5 p-button-text p-button-rounded" @click="$router.push('/')">
         <sub class="pb-1 sub-brand"></sub>
         <strong class="brand">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</strong>
       </a>
@@ -86,7 +84,7 @@ function confirmSignout() {
       </div>
       <!-- / light | dark mode switch -->
       <!-- signout button -->
-      <Button
+      <PButton
         v-if="hasAuthorization"
         pTooltip="خروج از حساب کاربری"
         class="sign-out-button p-button-lg p-button-rounded p-button-text p-button-danger"

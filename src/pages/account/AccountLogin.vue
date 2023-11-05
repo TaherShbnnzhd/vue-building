@@ -8,7 +8,6 @@ import router from '@/router'
 import Toast from 'primevue/toast'
 import Password from 'primevue/password'
 import Checkbox from 'primevue/checkbox'
-import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 
 import { useAuthentication } from '@core/services/UseAuthentication'
@@ -21,8 +20,8 @@ import { tap } from 'rxjs/operators'
 
 const { logIn, setAuthorizationToken, redirectUrl } = useAuthentication()
 const { currentTheme } = useTheme()
-const { openSidemenu } = useSidemenu()
 const { toEnglish } = usePersianNumber()
+const sidemenu = useSidemenu()
 const toast = useToast()
 
 const loading = ref(false)
@@ -47,7 +46,7 @@ function signin() {
 
           // Redirect the user
           router.push(redirectUrl.value || '')
-          openSidemenu()
+          sidemenu.open()
         } else
           toast.add({
             life: 8000,
@@ -68,7 +67,7 @@ function signin() {
       <div class="card-body">
         <div class="row">
           <div class="col-md-12 col-xl-7 order-2 order-lg-1 bordered-box">
-            <form @submit.prevent="signin">
+            <form class="p-xl-5 p-lg-3 p-md-2 p-2" @submit.prevent="signin">
               <div class="form-group">
                 <div class="field">
                   <label for="username" class="text-600 font-medium mb-2 ms-1"> نام کاربری </label>
@@ -114,7 +113,8 @@ function signin() {
                 </div>
 
                 <div class="w-100 text-end">
-                  <Button
+                  <PButton
+                    rounded
                     class="submit-button w-100 shadow-2 p-button-primary"
                     icon="pi pi-user"
                     type="submit"

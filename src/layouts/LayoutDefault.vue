@@ -1,10 +1,11 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
 
 <script setup lang="ts">
-import { getCurrentInstance, onBeforeMount, onBeforeUnmount, onMounted, ref } from 'vue'
+import { getCurrentInstance, onBeforeMount, ref, watch } from 'vue'
 import router from '@/router'
 
 import { useSidemenu } from './services/UseSidemenu'
+import { useWindowResize } from './services/UseWindowResize'
 
 import LayoutFooter from './components/LayoutFooter.vue'
 import LayoutHeader from './components/LayoutHeader.vue'
@@ -13,46 +14,22 @@ import LayoutLoading from './components/LayoutLoading.vue'
 
 import Toast from 'primevue/toast'
 
-const { offcanvasMode, isClosedSidmenu } = useSidemenu()
+const sidemenu = useSidemenu()
+const { width } = useWindowResize()
 
 /** Current application version. */
-const version = getCurrentInstance()?.appContext?.config?.globalProperties?.versionNumber
+const packageVersion = getCurrentInstance()?.appContext?.config?.globalProperties?.packageVersion
 
 /** Components loading. */
 const loading = ref(false)
 
-/** Width of the screen. */
-const innerWidth = ref(window.innerWidth)
+watch(width, (newWidth) => sidemenu.setOffcanvas(newWidth < 991))
 
 onBeforeMount(() => {
-  offcanvasModeDetection(window.innerWidth)
-
+  sidemenu.setOffcanvas(width.value < 991)
   router.afterEach(() => (loading.value = true))
   router.afterEach(() => (loading.value = false))
 })
-
-onMounted(() => {
-  window.addEventListener('resize', onResize)
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', onResize)
-})
-
-/** Get width of the screen */
-function onResize() {
-  innerWidth.value = window.innerWidth
-  offcanvasModeDetection(window.innerWidth)
-}
-
-/**
- * Detect sidemenu offcanvas mode.
- * @param innerWidth windows width
- */
-function offcanvasModeDetection(innerWidth: number) {
-  if (innerWidth < 991) offcanvasMode.value = true
-  else offcanvasMode.value = false
-}
 </script>
 
 <template>
@@ -63,7 +40,7 @@ function offcanvasModeDetection(innerWidth: number) {
       <!-- / Header -->
 
       <!-- Sidemenu -->
-      <LayoutSidemenu :innerWidth="innerWidth" />
+      <LayoutSidemenu />
       <!-- / Sidemenu -->
 
       <!-- / Left frame -->
@@ -76,8 +53,8 @@ function offcanvasModeDetection(innerWidth: number) {
         <div
           class="content-body"
           :class="{
-            full: offcanvasMode || isClosedSidmenu(),
-            compact: !offcanvasMode && !isClosedSidmenu()
+            full: sidemenu.isOffcanvas.value || sidemenu.hasCloseState(),
+            compact: !sidemenu.isOffcanvas.value && !sidemenu.hasCloseState()
           }"
         >
           <!-- page loading screen -->
@@ -102,7 +79,7 @@ function offcanvasModeDetection(innerWidth: number) {
 
       <!-- Footer -->
       <div class="mt-2">
-        <LayoutFooter :version="version" />
+        <LayoutFooter :version="packageVersion" />
       </div>
       <!-- / Footer -->
     </div>
