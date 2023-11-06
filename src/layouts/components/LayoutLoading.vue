@@ -12,7 +12,7 @@ const props = defineProps<{
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /* From cssbuttons.io by @satyamchaudharydev */
 .loader {
   width: 100vw;

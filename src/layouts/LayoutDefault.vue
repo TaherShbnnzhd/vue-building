@@ -1,6 +1,6 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { getCurrentInstance, onBeforeMount, ref, watch } from 'vue'
 import router from '@/router'
 
@@ -86,7 +86,7 @@ onBeforeMount(() => {
   </main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 main {
   scroll-behavior: smooth;
   background-color: var(--main-color);
@@ -98,13 +98,13 @@ main {
     margin: 0 0 0 0;
 
     .compact-header {
-      .home-botton {
+      :deep(.home-botton) {
         padding-right: var(--sidemenu-width);
       }
     }
 
     .compact-footer {
-      .copy-right {
+      :deep(.copy-right) {
         padding-right: var(--sidemenu-width);
       }
     }
@@ -179,25 +179,21 @@ main {
         height: 10px;
         width: 80px;
         bottom: 0;
+        left: 8px;
+        height: 30px;
+        width: 30px;
+        border-bottom-left-radius: 35%;
+        background: transparent;
       }
 
       &:before {
         top: var(--header-height);
-        left: 8px;
-        height: 30px;
-        width: 30px;
-        border-bottom-left-radius: 50%;
-        background: transparent;
         transform: rotate(90deg);
         box-shadow: 0 13px 0 0 var(--sidemenu-main-color);
       }
 
       &:after {
         bottom: var(--footer-height);
-        left: 7px;
-        height: 30px;
-        width: 30px;
-        border-bottom-left-radius: 50%;
         background: transparent;
         transform: rotate(0deg);
         box-shadow: 0 10px 0 0 var(--sidemenu-main-color);

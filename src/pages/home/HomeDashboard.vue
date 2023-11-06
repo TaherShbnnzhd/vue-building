@@ -8,7 +8,7 @@
   </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .content {
   text-align: center;
   height: 72vh;

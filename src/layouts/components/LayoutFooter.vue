@@ -19,7 +19,7 @@ withDefaults(defineProps<{ version: string }>(), {
   </footer>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .footer {
   position: fixed;
   bottom: 0;

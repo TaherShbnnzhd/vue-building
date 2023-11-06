@@ -12,7 +12,7 @@ const isOffcanvas = ref(true)
 
 /** Handle sidemenu actions */
 export function useSidemenu() {
-  const { hasAuthorization } = useAuthentication()
+  const { authorized } = useAuthentication()
 
   /** Sidemenu menu name. */
   const menus = new BehaviorSubject<string>('')
@@ -20,7 +20,7 @@ export function useSidemenu() {
   /** Set sidemenu offcanvas state. */
   function setOffcanvas(value: boolean) {
     if (value) close()
-    else if (hasAuthorization.value) {
+    else if (authorized.value) {
       menus.next(menus.getValue())
       open()
     }

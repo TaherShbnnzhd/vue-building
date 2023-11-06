@@ -8,26 +8,16 @@ import { delay } from 'rxjs/operators'
 /** Store the URL so we can redirect after logging in */
 const redirectUrl = ref('/')
 
+/** User authorization state */
+const authorized = computed(() => !!getAuthorizationToken())
+
+/** Return token if exists */
+function getAuthorizationToken() {
+  return sessionStorage.getItem('TOKEN') || localStorage.getItem('TOKEN') || ''
+}
+
 /** Handle authentication like token, login and logout */
 export function useAuthentication() {
-  const hasAuthorization = computed(() => !!getAuthorizationToken())
-
-  /**
-   * Update redirectUrl
-   * @param url redirect URL
-   */
-  function setRedirectUrl(url: string) {
-    redirectUrl.value = url
-  }
-
-  /** Return token if exists */
-  function getAuthorizationToken() {
-    const sessionStorageToken = sessionStorage.getItem('TOKEN')
-    const localStorageToken = localStorage.getItem('TOKEN')
-
-    return sessionStorageToken || localStorageToken || ''
-  }
-
   /**
    *  Set token if exists
    * @param token token
@@ -35,8 +25,8 @@ export function useAuthentication() {
    */
   function setAuthorizationToken(token: string, localStorageMode = false) {
     if (token) {
-      if (localStorageMode) localStorage.setItem('TOKEN', 'TOKEN')
-      else sessionStorage.setItem('TOKEN', 'TOKEN')
+      if (localStorageMode) localStorage.setItem('TOKEN', token)
+      else sessionStorage.setItem('TOKEN', token)
     }
   }
 
@@ -51,14 +41,13 @@ export function useAuthentication() {
 
   /** Try to log out */
   function logOut() {
-    sessionStorage.removeItem('Token')
-    localStorage.removeItem('Token')
+    sessionStorage.clear()
+    localStorage.clear()
   }
 
   return {
     redirectUrl,
-    hasAuthorization,
-    setRedirectUrl,
+    authorized,
     getAuthorizationToken,
     setAuthorizationToken,
     logIn,

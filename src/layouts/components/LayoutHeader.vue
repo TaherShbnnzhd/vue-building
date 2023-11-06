@@ -12,13 +12,13 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import router from '@/router'
 
 const { currentTheme, switchTheme } = useTheme()
-const { logOut, hasAuthorization } = useAuthentication()
+const { logOut, authorized } = useAuthentication()
 const sidemenu = useSidemenu()
 const confirm = useConfirm()
 
 const _darkmode = ref(currentTheme.value === 'light-theme' ? false : true)
 
-let darkmode = computed({
+const darkmode = computed({
   get() {
     return _darkmode.value
   },
@@ -40,7 +40,7 @@ function toggleDarkMode(darkmode: boolean) {
 }
 
 /** Sign out */
-function signout() {
+function signOut() {
   //  storedRoutesService.clearStoredRoutes()
   sidemenu.close()
   logOut()
@@ -59,7 +59,7 @@ function confirmSignout() {
     rejectLabel: 'انصراف',
     rejectClass: 'p-button-secondary',
     defaultFocus: 'reject',
-    accept: () => signout()
+    accept: () => signOut()
   })
 }
 </script>
@@ -85,7 +85,7 @@ function confirmSignout() {
       <!-- / light | dark mode switch -->
       <!-- signout button -->
       <PButton
-        v-if="hasAuthorization"
+        v-if="authorized"
         pTooltip="خروج از حساب کاربری"
         class="sign-out-button p-button-lg p-button-rounded p-button-text p-button-danger"
         type="button"
@@ -96,10 +96,10 @@ function confirmSignout() {
     </div>
   </header>
 
-  <ConfirmDialog :style="{ width: '450px' }" :rtl="true"></ConfirmDialog>
+  <ConfirmDialog :style="{ width: '450px' }" :rtl="true" />
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   position: fixed;
   top: 0;

@@ -1,7 +1,6 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
 import './assets/main.css'
-import './styles/themes/light.scss'
 
 import 'bootstrap/dist/css/bootstrap.rtl.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'

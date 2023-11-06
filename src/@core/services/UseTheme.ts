@@ -16,7 +16,7 @@ export function useTheme() {
 
     if (themeLink) {
       currentTheme.value = theme
-      themeLink.href = currentTheme.value + '.css'
+      themeLink.href = `/styles/${currentTheme.value}.css`
     }
   }
 

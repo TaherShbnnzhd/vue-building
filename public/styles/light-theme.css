@@ -3,12 +3,12 @@
 /*--------------------------------------------------------------
 # PrimeNG Theme
 --------------------------------------------------------------*/
-@import 'primevue/resources/themes/viva-light/theme.css';
+@import '/node_modules/primevue/resources/themes/lara-light-teal/theme.css';
 
 /*--------------------------------------------------------------
 # Boostrap Variables
 --------------------------------------------------------------*/
-// @import "node_modules/bootstrap/scss/functions";
+/* // @import "node_modules/bootstrap/scss/functions";
 // @import "node_modules/bootstrap/scss/variables";
 // @import "node_modules/bootstrap/scss/maps";
 // @import "node_modules/bootstrap/scss/utilities";
@@ -17,7 +17,7 @@
 
 // Include remainder of required Bootstrap stylesheets
 // @import "node_modules/bootstrap/scss/bootstrap";
-// @import "node_modules/bootstrap/dist/css/bootstrap.rtl.min.css";
+// @import "node_modules/bootstrap/dist/css/bootstrap.rtl.min.css"; */
 
 /*--------------------------------------------------------------
 # Main color palette

@@ -5,11 +5,11 @@ import type { RouteLocationNormalized } from 'vue-router'
 import router from '.'
 
 export const authenticationGuard = (to: RouteLocationNormalized) => {
-  const { hasAuthorization, redirectUrl } = useAuthentication()
+  const { authorized, redirectUrl } = useAuthentication()
 
-  if (hasAuthorization.value) return true
+  if (authorized.value) return true
   else {
-    redirectUrl.value = `${to.path.toString().replace(',', '/')}`
+    redirectUrl.value = to.path
     router.push('/account/login')
     return false
   }

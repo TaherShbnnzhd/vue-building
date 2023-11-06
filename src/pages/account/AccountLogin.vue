@@ -45,7 +45,7 @@ function signin() {
           setAuthorizationToken('TOKEN', rememberMe.value)
 
           // Redirect the user
-          router.push(redirectUrl.value || '')
+          router.push(redirectUrl.value || '/')
           sidemenu.open()
         } else
           toast.add({
@@ -406,7 +406,7 @@ function signin() {
   </main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 main {
   position: relative;
 

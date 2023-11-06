@@ -6,7 +6,7 @@ import { ref, onBeforeMount, onMounted } from 'vue'
 import { useSidemenu } from '../services/UseSidemenu'
 import type { Menu } from '../LayoutTypes'
 
-const { hasAuthorization } = useAuthentication()
+const { authorized } = useAuthentication()
 const sidemenu = useSidemenu()
 
 /** List of menus. */
@@ -18,7 +18,7 @@ const subMenuItems = ref<HTMLUListElement[] | []>([])
 const subMenuItemsOffcanvas = ref<HTMLUListElement[] | []>([])
 
 onBeforeMount(() => {
-  if (!hasAuthorization.value) sidemenu.close()
+  if (!authorized.value) sidemenu.close()
   else sidemenu.open()
 })
 
@@ -161,7 +161,7 @@ function expandActiveMenu(name: string) {
       :class="{
         'tab-content-wide': sidemenu.isOffcanvas.value || sidemenu.hasCloseState(),
         'tab-content-compact': !sidemenu.isOffcanvas.value && !sidemenu.hasCloseState(),
-        'tab-content-close': !hasAuthorization
+        'tab-content-close': !authorized
       }"
     >
       <!-- <block-active-tabs-bar></block-active-tabs-bar> -->
@@ -181,7 +181,7 @@ function expandActiveMenu(name: string) {
           class="toggle-panel-button-icon"
           :class="{
             closed: sidemenu.hasCloseState(),
-            'no-icon': !hasAuthorization
+            'no-icon': !authorized
           }"
         >
           <i
@@ -320,7 +320,7 @@ function expandActiveMenu(name: string) {
   </aside>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 a {
   color: var(--sidemenu-item-color);
   text-decoration: none;
@@ -377,7 +377,7 @@ a {
       height: 30px;
       width: 30px;
       box-shadow: 0 13px 0 0 var(--sidemenu-main-color);
-      border-bottom-left-radius: 50%;
+      border-bottom-left-radius: 35%;
       background: transparent;
     }
 
@@ -387,7 +387,7 @@ a {
     }
 
     &:after {
-      bottom: 15px;
+      bottom: 14px;
       transform: rotate(270deg);
     }
   }
