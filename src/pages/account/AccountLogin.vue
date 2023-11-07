@@ -26,10 +26,10 @@ interface LoginForm {
   password: string
 }
 
-const { logIn, setAuthorizationToken, redirectUrl } = useAuthentication()
 const { currentTheme } = useTheme()
+const { redirectUrl, logIn, setAuthorizationToken } = useAuthentication()
 const { toEnglish, toPersian } = usePersianNumber()
-const sidemenu = useSidemenu()
+const { openSidemenu } = useSidemenu()
 const toast = useToast()
 
 const { handleSubmit } = useForm<LoginForm>()
@@ -60,7 +60,7 @@ const signIn = handleSubmit((loginForm) => {
 
         // Redirect the user
         router.push(redirectUrl.value || '/')
-        sidemenu.open()
+        openSidemenu()
       } else
         toast.add({
           life: 8000,

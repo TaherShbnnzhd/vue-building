@@ -14,7 +14,7 @@ import LayoutLoading from './components/LayoutLoading.vue'
 
 import Toast from 'primevue/toast'
 
-const sidemenu = useSidemenu()
+const { isOffcanvasSidemenu, isClosedSidemenu, setOffcanvasSidemenu } = useSidemenu()
 const { width } = useWindowResize()
 
 /** Current application version. */
@@ -23,10 +23,10 @@ const packageVersion = getCurrentInstance()?.appContext?.config?.globalPropertie
 /** Components loading. */
 const loading = ref(false)
 
-watch(width, (newWidth) => sidemenu.setOffcanvas(newWidth < 991))
+watch(width, (newWidth) => setOffcanvasSidemenu(newWidth < 991))
 
 onBeforeMount(() => {
-  sidemenu.setOffcanvas(width.value < 991)
+  setOffcanvasSidemenu(width.value < 991)
   router.afterEach(() => (loading.value = true))
   router.afterEach(() => (loading.value = false))
 })
@@ -53,8 +53,8 @@ onBeforeMount(() => {
         <div
           class="content-body"
           :class="{
-            full: sidemenu.isOffcanvas.value || sidemenu.hasCloseState(),
-            compact: !sidemenu.isOffcanvas.value && !sidemenu.hasCloseState()
+            full: isOffcanvasSidemenu || isClosedSidemenu,
+            compact: !isOffcanvasSidemenu && !isClosedSidemenu
           }"
         >
           <!-- page loading screen -->

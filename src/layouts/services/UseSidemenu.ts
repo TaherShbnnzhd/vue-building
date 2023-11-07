@@ -4,49 +4,49 @@ import { ref } from 'vue'
 import { BehaviorSubject } from 'rxjs'
 
 import { useAuthentication } from '@core/services/UseAuthentication'
+import { computed } from 'vue'
 
 /** Sidemenu state. */
 const state = ref(true)
 /** Sidemenu offcanvas state. */
-const isOffcanvas = ref(true)
+const isOffcanvasSidemenu = ref(true)
 
 /** Handle sidemenu actions */
 export function useSidemenu() {
   const { isAuthenticated } = useAuthentication()
 
   /** Sidemenu menu name. */
-  const menus = new BehaviorSubject<string>('')
+  const sidemenus = new BehaviorSubject<string>('')
+
+  /** Sidemenu close state. */
+  const isClosedSidemenu = computed(() => state.value)
 
   /** Set sidemenu offcanvas state. */
-  function setOffcanvas(value: boolean) {
-    if (value) close()
+  function setOffcanvasSidemenu(value: boolean) {
+    if (value) openSidemenu()
     else if (isAuthenticated.value) {
-      menus.next(menus.getValue())
-      open()
+      sidemenus.next(sidemenus.getValue())
+      closeSidemenu()
     }
-    isOffcanvas.value = value
+    isOffcanvasSidemenu.value = value
   }
 
   /** Open sidemenu. */
-  function open() {
+  function openSidemenu() {
     state.value = false
   }
 
   /** Close sidemenu. */
-  function close() {
+  function closeSidemenu() {
     state.value = true
   }
 
-  /** Sidemenu close state. */
-  function hasCloseState() {
-    return state.value
-  }
   return {
-    menus,
-    isOffcanvas,
-    setOffcanvas,
-    open,
-    close,
-    hasCloseState
+    sidemenus,
+    isOffcanvasSidemenu,
+    setOffcanvasSidemenu,
+    openSidemenu,
+    closeSidemenu,
+    isClosedSidemenu
   }
 }

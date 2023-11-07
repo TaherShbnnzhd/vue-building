@@ -7,7 +7,8 @@ import { useSidemenu } from '../services/UseSidemenu'
 import type { Menu } from '../LayoutTypes'
 
 const { isAuthenticated } = useAuthentication()
-const sidemenu = useSidemenu()
+const { sidemenus, isOffcanvasSidemenu, isClosedSidemenu, openSidemenu, closeSidemenu } =
+  useSidemenu()
 
 /** List of menus. */
 const menuList = ref<Menu[]>(getMenuItems())
@@ -18,13 +19,13 @@ const subMenuItems = ref<HTMLUListElement[] | []>([])
 const subMenuItemsOffcanvas = ref<HTMLUListElement[] | []>([])
 
 onBeforeMount(() => {
-  if (!isAuthenticated.value) sidemenu.close()
-  else sidemenu.open()
+  if (!isAuthenticated.value) closeSidemenu()
+  else openSidemenu()
 })
 
 onMounted(() => {
   // Expand active menu when login redirect user.
-  sidemenu.menus.subscribe((menu) => {
+  sidemenus.subscribe((menu) => {
     collapseAllMenu()
     expandActiveMenu(menu)
   })
@@ -154,13 +155,13 @@ function expandActiveMenu(name: string) {
 </script>
 
 <template>
-  <aside class="sidebar" :class="{ closed: sidemenu.hasCloseState() }">
+  <aside class="sidebar" :class="{ closed: isClosedSidemenu }">
     <!-- ردیف تب ها -->
     <div
       class="toggle-panel-active-tabs mx-3"
       :class="{
-        'tab-content-wide': sidemenu.isOffcanvas.value || sidemenu.hasCloseState(),
-        'tab-content-compact': !sidemenu.isOffcanvas.value && !sidemenu.hasCloseState(),
+        'tab-content-wide': isOffcanvasSidemenu || isClosedSidemenu,
+        'tab-content-compact': !isOffcanvasSidemenu && !isClosedSidemenu,
         'tab-content-close': !isAuthenticated
       }"
     >
@@ -171,23 +172,23 @@ function expandActiveMenu(name: string) {
       <!-- حالت جم شونده -->
       <a
         class="toggle-panel-button"
-        :data-bs-toggle="sidemenu.isOffcanvas.value ? 'offcanvas' : ''"
-        :data-bs-target="sidemenu.isOffcanvas.value ? '#offcanvasRight' : ''"
-        :aria-controls="sidemenu.isOffcanvas.value ? 'offcanvasRight' : ''"
-        :class="{ closed: sidemenu.hasCloseState() }"
-        @click="sidemenu.hasCloseState() ? sidemenu.open() : sidemenu.close()"
+        :data-bs-toggle="isOffcanvasSidemenu ? 'offcanvas' : ''"
+        :data-bs-target="isOffcanvasSidemenu ? '#offcanvasRight' : ''"
+        :aria-controls="isOffcanvasSidemenu ? 'offcanvasRight' : ''"
+        :class="{ closed: isClosedSidemenu }"
+        @click="isClosedSidemenu ? openSidemenu() : closeSidemenu()"
       >
         <div
           class="toggle-panel-button-icon"
           :class="{
-            closed: sidemenu.hasCloseState(),
+            closed: isClosedSidemenu,
             'no-icon': !isAuthenticated
           }"
         >
           <i
             :class="{
-              mgc_menu_fill: sidemenu.isOffcanvas.value || sidemenu.hasCloseState(),
-              mgc_more_2_fill: !sidemenu.isOffcanvas.value && !sidemenu.hasCloseState()
+              mgc_menu_fill: isOffcanvasSidemenu || isClosedSidemenu,
+              mgc_more_2_fill: !isOffcanvasSidemenu && !isClosedSidemenu
             }"
           ></i>
         </div>

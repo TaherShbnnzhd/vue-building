@@ -13,7 +13,7 @@ import router from '@/router'
 
 const { currentTheme, switchTheme } = useTheme()
 const { logOut, isAuthenticated } = useAuthentication()
-const sidemenu = useSidemenu()
+const { closeSidemenu } = useSidemenu()
 const confirm = useConfirm()
 
 const _darkmode = ref(currentTheme.value === 'light-theme' ? false : true)
@@ -42,7 +42,7 @@ function toggleDarkMode(darkmode: boolean) {
 /** Sign out */
 function signOut() {
   //  storedRoutesService.clearStoredRoutes()
-  sidemenu.close()
+  closeSidemenu()
   logOut()
   router.push('/account/login')
 }
