@@ -14,49 +14,62 @@ import { useAuthentication } from '@core/services/UseAuthentication'
 import { useTheme } from '@core/services/UseTheme'
 import { useSidemenu } from '@/layouts/services/UseSidemenu'
 import { usePersianNumber } from '@shared/utils/usePersianNumber'
+
 import { useToast } from 'primevue/usetoast'
 
 import { tap } from 'rxjs/operators'
 
+import { useField, useForm } from 'vee-validate'
+
+interface LoginForm {
+  username: string
+  password: string
+}
+
 const { logIn, setAuthorizationToken, redirectUrl } = useAuthentication()
 const { currentTheme } = useTheme()
-const { toEnglish } = usePersianNumber()
+const { toEnglish, toPersian } = usePersianNumber()
 const sidemenu = useSidemenu()
 const toast = useToast()
 
-const loading = ref(false)
-const submitted = ref(false)
+const { handleSubmit } = useForm<LoginForm>()
 
-const username = ref('')
-const password = ref('')
+// Simple validation functions
+const { value: username, errorMessage: usernameError } = useField('username', (value: any) => {
+  if (!value) return 'لطفا نام کاربری را خالی نگذارید'
+  return true
+})
+
+const { value: password, errorMessage: passwordError } = useField('password', (value: any) => {
+  if (!value) return 'لطفا گذرواژه را خالی نگذارید'
+  if (value.length < 8) return toPersian('گذرواژه حداقل شامل 8 کاراکتر می‌باشد')
+  return true
+})
+
+const loading = ref(false)
 const rememberMe = ref(false)
 
-/** Log in user */
-function signin() {
-  submitted.value = true
+const signIn = handleSubmit((loginForm) => {
+  loading.value = true
 
-  if (username.value && password.value) {
-    loading.value = true
+  logIn(toEnglish(loginForm.username), loginForm.password)
+    .pipe(tap(() => (loading.value = false)))
+    .subscribe((isValid) => {
+      if (isValid) {
+        setAuthorizationToken('TOKEN', rememberMe.value)
 
-    logIn(toEnglish(username.value), password.value)
-      .pipe(tap(() => (loading.value = false)))
-      .subscribe((isValid) => {
-        if (isValid) {
-          setAuthorizationToken('TOKEN', rememberMe.value)
-
-          // Redirect the user
-          router.push(redirectUrl.value || '/')
-          sidemenu.open()
-        } else
-          toast.add({
-            life: 8000,
-            severity: 'error',
-            detail: `خطا`,
-            summary: 'اطلاعات وارد شده صحیح نمی‌باشد'
-          })
-      })
-  }
-}
+        // Redirect the user
+        router.push(redirectUrl.value || '/')
+        sidemenu.open()
+      } else
+        toast.add({
+          life: 8000,
+          severity: 'error',
+          detail: `خطا`,
+          summary: 'اطلاعات وارد شده صحیح نمی‌باشد'
+        })
+    })
+})
 </script>
 
 <template>
@@ -67,17 +80,23 @@ function signin() {
       <div class="card-body">
         <div class="row">
           <div class="col-md-12 col-xl-7 order-2 order-lg-1 bordered-box">
-            <form class="p-xl-5 p-lg-3 p-md-2 p-2" @submit.prevent="signin">
-              <div class="form-group">
+            <form class="py-xl-4 p-lg-3 p-md-2 p-2" @submit.prevent="signIn" novalidate>
+              <div class="form-group px-xl-3">
                 <div class="field">
                   <label for="username" class="text-600 font-medium mb-2 ms-1"> نام کاربری </label>
                   <InputText
                     id="username"
                     name="username"
-                    class="w-100"
                     v-model="username"
+                    :class="{ 'p-invalid': usernameError }"
+                    class="w-100"
                     type="text"
+                    :state="null"
+                    required
                   />
+                  <small class="p-error d-block" id="text-error">{{
+                    usernameError || '&nbsp;'
+                  }}</small>
                 </div>
 
                 <div class="field">
@@ -86,16 +105,19 @@ function signin() {
                     toggleMask
                     id="password"
                     name="password"
+                    v-model="password"
                     inputClass="w-100"
                     class="w-100"
-                    v-model="password"
+                    :class="{ 'p-invalid': passwordError }"
                     :feedback="false"
+                    :minlength="8"
                   />
+                  <small class="p-error d-block" id="text-error">{{
+                    passwordError || '&nbsp;'
+                  }}</small>
                 </div>
 
-                <div
-                  class="d-flex align-items-center justify-content-between my-xl-4 my-lg-4 my-md-2"
-                >
+                <div class="d-flex align-items-center justify-content-between mt-md-4 mb-md-1 mx-1">
                   <!-- remember me -->
                   <div class="d-flex flex-row-reverse align-items-center ms-1">
                     <label for="rememberMe" class="text-900">
@@ -111,14 +133,12 @@ function signin() {
                     />
                   </div>
                   <!-- forgot password -->
-                  <a
-                    class="active-link font-medium no-underline me-1 text-hilight text-start cursor-pointer"
-                  >
+                  <a class="active-link no-underline me-1 text-hilight text-start cursor-pointer">
                     <strong> گذرواژتو فراموش کردی؟ </strong>
                   </a>
                 </div>
 
-                <div class="w-100 text-end">
+                <div class="w-100 text-end pt-3 d-flex jc-center ai-center">
                   <PButton
                     rounded
                     class="submit-button w-100 shadow-2 p-button-primary"
@@ -133,27 +153,29 @@ function signin() {
           </div>
           <div class="col-md-12 col-xl-5">
             <div class="row d-flex jc-center ai-center mt-xl-3">
-              <div class="col-xl-12 text-xl-center text-md-start mb-2">
+              <div class="col-xl-12 text-xl-center text-md-start">
                 <div class="text-900 display-5 font-medium mb-xl-4 mb-md-0">
-                  <strong> سلام </strong>
+                  <strong> سـلام </strong>
                 </div>
 
-                <span class="text-600 font-medium line-height-3"> هنوز حساب کاربری نداری؟ </span>
+                <div class="pb-2">
+                  <span class="text-600 font-medium line-height-3"> هنوز حساب کاربری نداری؟ </span>
 
-                <a
-                  class="active-link font-medium no-underline text-hilight cursor-pointer"
-                  routerLink="/account/register"
-                  ariaCurrentWhenActive="page"
-                >
-                  <strong> از اینجا بساز! </strong>
-                </a>
+                  <a
+                    class="active-link no-underline text-hilight cursor-pointer"
+                    routerLink="/account/register"
+                    ariaCurrentWhenActive="page"
+                  >
+                    <strong> از اینجا بساز! </strong>
+                  </a>
+                </div>
               </div>
               <!-- light theme sign in -->
               <svg
                 v-if="currentTheme === 'light-theme'"
                 class="col-xl-12 d-xl-block d-none rounded mt-3"
-                width="375"
-                height="250"
+                width="330"
+                height="220"
                 viewBox="0 0 900 600"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +183,7 @@ function signin() {
                 <path fill="transparent" d="M0 0h900v600H0z" />
                 <path
                   d="M233.702 340.487c-9.832-75.071 41.974-164.345 152.377-150.805 93.645 11.482 113.945-3.323 154.259-24.42 26.623-13.926 68.27-38.567 102.058 31.895 44.224 92.222-59.489 236.818-152.117 281.165-88.577 42.413-238.743-1.601-256.577-137.835z"
-                  fill="#de0051"
+                  fill="#FD4D00"
                 />
                 <rect
                   x="275.027"
@@ -280,8 +302,8 @@ function signin() {
               <svg
                 v-if="currentTheme === 'dark-theme'"
                 class="col-xl-12 d-xl-block d-none rounded mt-3"
-                width="375"
-                height="250"
+                width="330"
+                height="220"
                 viewBox="0 0 900 600"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -289,7 +311,7 @@ function signin() {
                 <path fill="transparent" d="M0 0h900v600H0z" />
                 <path
                   d="M233.702 340.487c-9.832-75.071 41.974-164.345 152.377-150.805 93.645 11.482 113.945-3.323 154.259-24.42 26.623-13.926 68.27-38.567 102.058 31.895 44.224 92.222-59.489 236.818-152.117 281.165-88.577 42.413-238.743-1.601-256.577-137.835z"
-                  fill="#e0002b"
+                  fill="#657EFF"
                 />
                 <rect
                   x="275.027"
@@ -417,8 +439,8 @@ main {
   position: relative;
 
   .card {
-    max-width: 1010px;
-    min-height: 450px;
+    max-width: 1000px;
+    min-height: 350px;
   }
   .card-body {
     padding: 20px 20px 20px 20px !important;
@@ -434,7 +456,7 @@ main {
 }
 
 .font-medium {
-  font-weight: 500 !important;
+  font-weight: 400 !important;
 }
 
 .text-900 {

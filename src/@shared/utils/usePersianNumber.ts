@@ -79,7 +79,7 @@ export function usePersianNumber() {
 
     let persianValue: string = value.toString()
 
-    persianValue = this.arabicToPersian(persianValue)
+    persianValue = arabicToPersian(persianValue)
 
     let regex: RegExp
 
