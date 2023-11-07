@@ -83,12 +83,12 @@ function signin() {
                 <div class="field">
                   <label for="password" class="text-600 font-medium mb-2 ms-1"> گذرواژه </label>
                   <Password
+                    toggleMask
                     id="password"
                     name="password"
                     inputClass="w-100"
                     class="w-100"
                     v-model="password"
-                    toggleMask
                     :feedback="false"
                   />
                 </div>
@@ -102,7 +102,13 @@ function signin() {
                       <strong> منو یادتون بمونه </strong>
                     </label>
 
-                    <Checkbox id="rememberMe" name="rememberMe" class="me-2" :binary="true" />
+                    <Checkbox
+                      id="rememberMe"
+                      name="rememberMe"
+                      class="me-2"
+                      v-model="rememberMe"
+                      :binary="true"
+                    />
                   </div>
                   <!-- forgot password -->
                   <a
