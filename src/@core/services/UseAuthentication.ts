@@ -9,7 +9,7 @@ import { delay } from 'rxjs/operators'
 const redirectUrl = ref('/')
 
 /** User authorization state */
-const authorized = computed(() => !!getAuthorizationToken())
+const isAuthenticated = computed(() => !!getAuthorizationToken())
 
 /** Return token if exists */
 function getAuthorizationToken() {
@@ -47,7 +47,7 @@ export function useAuthentication() {
 
   return {
     redirectUrl,
-    authorized,
+    isAuthenticated,
     getAuthorizationToken,
     setAuthorizationToken,
     logIn,

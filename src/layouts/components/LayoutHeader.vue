@@ -12,7 +12,7 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import router from '@/router'
 
 const { currentTheme, switchTheme } = useTheme()
-const { logOut, authorized } = useAuthentication()
+const { logOut, isAuthenticated } = useAuthentication()
 const sidemenu = useSidemenu()
 const confirm = useConfirm()
 
@@ -85,7 +85,8 @@ function confirmSignout() {
       <!-- / light | dark mode switch -->
       <!-- signout button -->
       <PButton
-        v-if="authorized"
+        rounded
+        v-if="isAuthenticated"
         pTooltip="خروج از حساب کاربری"
         class="sign-out-button p-button-lg p-button-rounded p-button-text p-button-danger"
         type="button"

@@ -6,7 +6,7 @@ import { ref, onBeforeMount, onMounted } from 'vue'
 import { useSidemenu } from '../services/UseSidemenu'
 import type { Menu } from '../LayoutTypes'
 
-const { authorized } = useAuthentication()
+const { isAuthenticated } = useAuthentication()
 const sidemenu = useSidemenu()
 
 /** List of menus. */
@@ -18,7 +18,7 @@ const subMenuItems = ref<HTMLUListElement[] | []>([])
 const subMenuItemsOffcanvas = ref<HTMLUListElement[] | []>([])
 
 onBeforeMount(() => {
-  if (!authorized.value) sidemenu.close()
+  if (!isAuthenticated.value) sidemenu.close()
   else sidemenu.open()
 })
 
@@ -161,7 +161,7 @@ function expandActiveMenu(name: string) {
       :class="{
         'tab-content-wide': sidemenu.isOffcanvas.value || sidemenu.hasCloseState(),
         'tab-content-compact': !sidemenu.isOffcanvas.value && !sidemenu.hasCloseState(),
-        'tab-content-close': !authorized
+        'tab-content-close': !isAuthenticated
       }"
     >
       <!-- <block-active-tabs-bar></block-active-tabs-bar> -->
@@ -181,7 +181,7 @@ function expandActiveMenu(name: string) {
           class="toggle-panel-button-icon"
           :class="{
             closed: sidemenu.hasCloseState(),
-            'no-icon': !authorized
+            'no-icon': !isAuthenticated
           }"
         >
           <i
