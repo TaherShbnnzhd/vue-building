@@ -1,5 +1,5 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
 
 <template>
-    <RouterView />
+  <RouterView />
 </template>

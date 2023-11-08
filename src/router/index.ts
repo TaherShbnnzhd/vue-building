@@ -6,41 +6,67 @@ import { authenticationGuard } from './authenticationGuard'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/home/dashboard' },
     {
       path: '/',
-      name: 'بنا',
+      meta: {
+        title: 'بنا'
+      },
       // route level code-splitting
       // this generates a separate chunk (MainLayout.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../layouts/LayoutDefault.vue'),
       children: [
-        {
-          path: '/',
-          redirect: '/home/dashboard'
-        },
+        { path: '/', redirect: '/home/dashboard' },
         {
           path: 'account',
-          name: 'بنا | کاربری',
+          meta: {
+            title: 'بنا | کاربری'
+          },
           component: () => import('../pages/account/AccountDefault.vue'),
           children: [
+            { path: '/', redirect: '/account/login' },
             {
               path: 'login',
-              name: 'بنا | ورود',
-              component: () => import('../pages/account/AccountLogin.vue')
+              meta: {
+                title: 'بنا | ورود'
+              },
+              component: () => import('../pages/account/subpages/AccountLogin.vue')
             }
           ]
         },
         {
           path: 'home',
-          name: 'بنا | صفحه اصلی',
+          meta: {
+            title: 'بنا | صفحه اصلی'
+          },
           component: () => import('../pages/home/HomeDefault.vue'),
           beforeEnter: [authenticationGuard],
           children: [
+            { path: '/', redirect: '/home/dashboard' },
             {
               path: 'dashboard',
-              name: 'بنا | داشبورد',
-              component: () => import('../pages/home/HomeDashboard.vue')
+              meta: {
+                title: 'بنا | داشبورد'
+              },
+              component: () => import('../pages/home/subpages/HomeDashboard.vue')
+            }
+          ]
+        },
+        {
+          path: 'showcase',
+          meta: {
+            title: 'بنا | پیش نمایش'
+          },
+          component: () => import('../pages/home/HomeDefault.vue'),
+          beforeEnter: [authenticationGuard],
+          children: [
+            { path: '/', redirect: '/showcase/toast' },
+            {
+              path: 'toast',
+              meta: {
+                title: 'بنا | اعلان'
+              },
+              component: () => import('../pages/showcase/subpages/ShowcaseToast.vue')
             }
           ]
         }
@@ -48,5 +74,8 @@ const router = createRouter({
     }
   ]
 })
+
+// Assigning page title to different routes
+router.afterEach((to) => (window.document.title = (to.meta['title'] as string) || 'بنا'))
 
 export default router

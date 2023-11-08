@@ -49,48 +49,8 @@ function getMenuItems(): Menu[] {
         icon: 'mgc_palette_2_line',
         subMenu: [
           {
-            name: 'alerts',
-            title: 'پیغام'
-          },
-          {
-            name: 'accordion',
-            title: 'تاشو'
-          },
-          {
-            name: 'buttons',
-            title: 'دکمه'
-          },
-          {
-            name: 'modal',
+            name: 'toast',
             title: 'اعلان'
-          },
-          {
-            name: 'progress',
-            title: 'روند'
-          },
-          {
-            name: 'tab',
-            title: 'قسمت'
-          },
-          {
-            name: 'data-table',
-            title: 'جدول'
-          },
-          {
-            name: 'calendar',
-            title: 'تقویم'
-          },
-          {
-            name: 'dropdown',
-            title: 'انتخابگر'
-          },
-          {
-            name: 'upload',
-            title: 'بارگزاری'
-          },
-          {
-            name: 'bootstrapicon',
-            title: 'نمایه'
           }
         ]
       }
