@@ -33,7 +33,7 @@ export function useSidemenu() {
 
   /** Open sidemenu. */
   function openSidemenu() {
-    state.value = false
+    if (isAuthenticated.value) state.value = false
   }
 
   /** Close sidemenu. */

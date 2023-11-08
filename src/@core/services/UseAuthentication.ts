@@ -1,6 +1,6 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 import { Observable, of } from 'rxjs'
 import { delay } from 'rxjs/operators'
@@ -9,7 +9,7 @@ import { delay } from 'rxjs/operators'
 const redirectUrl = ref('/')
 
 /** User authorization state */
-const isAuthenticated = computed(() => !!getAuthorizationToken())
+const isAuthenticated = ref(!!getAuthorizationToken())
 
 /** Return token if exists */
 function getAuthorizationToken() {
@@ -27,6 +27,7 @@ export function useAuthentication() {
     if (token) {
       if (localStorageMode) localStorage.setItem('TOKEN', token)
       else sessionStorage.setItem('TOKEN', token)
+      isAuthenticated.value = true
     }
   }
 
@@ -43,6 +44,7 @@ export function useAuthentication() {
   function logOut() {
     sessionStorage.clear()
     localStorage.clear()
+    isAuthenticated.value = false
   }
 
   return {
