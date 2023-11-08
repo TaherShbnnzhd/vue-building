@@ -604,8 +604,7 @@ a {
     padding: 0;
 
     .menu-panel {
-      width: var(--sidemenu-width);
-      height: 100vh;
+      width: calc(var(--sidemenu-width) - 1px);
     }
   }
 }
