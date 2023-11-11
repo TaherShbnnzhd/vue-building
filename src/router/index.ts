@@ -1,8 +1,14 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  NavigationFailureType,
+  createRouter,
+  createWebHistory,
+  isNavigationFailure
+} from 'vue-router'
 import { authenticationGuard } from './authenticationGuard'
 import { useSidemenu } from '@/layouts/services/UseSidemenu'
+import { useToast } from 'primevue/usetoast'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,13 +86,18 @@ const router = createRouter({
 })
 
 const { sidemenus } = useSidemenu()
+const toast = useToast()
 
-router.afterEach((to) => {
+router.afterEach((to, from, failure) => {
   // Assigning page title to different routes
   window.document.title = (to.meta['title'] as string) || 'بنا'
 
   // Highlight route menu in sidemenu if exists
   sidemenus.next(to.path.split('/')[1])
+
+  // Detecting navigation failures
+  if (isNavigationFailure(failure, NavigationFailureType.aborted))
+    console.error('Login in order to access the admin panel')
 })
 
 export default router
