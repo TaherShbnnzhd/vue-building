@@ -86,7 +86,6 @@ const router = createRouter({
 })
 
 const { sidemenus } = useSidemenu()
-const toast = useToast()
 
 router.afterEach((to, from, failure) => {
   // Assigning page title to different routes
