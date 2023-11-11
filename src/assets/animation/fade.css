@@ -1,0 +1,13 @@
+/* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 200ms ease-out;
+}
+.fade-leave-active {
+  transition: opacity 13ms ease-in;
+}

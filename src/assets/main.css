@@ -1,3 +1,9 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
+/* GLOBAL */
+/* You can add global styles to this file, and also import other style files */
 @import './base.scss';
+
+/* ANIMATIONS */
+/* Fade in and out animation */
+@import './animation/fade.css';

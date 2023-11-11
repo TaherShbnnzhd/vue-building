@@ -72,55 +72,57 @@ const onClose = () => {
 </script>
 
 <template>
-  <Toast position="bottom-left" group="showcase-alert-severity" />
+  <div class="page">
+    <Toast position="bottom-left" group="showcase-alert-severity" />
 
-  <Toast position="bottom-center" group="showcase-alert-template" @close="onClose">
-    <template #message="slotProps">
-      <div class="d-flex flex-column align-items-start p-toast-message-text" style="flex: 1">
-        <div class="d-flex align-items-center gap-2">
-          <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
-          <span class="font-bold text-900 p-toast-summary">بانوی پاکدامن</span>
+    <Toast position="bottom-center" group="showcase-alert-template" @close="onClose">
+      <template #message="slotProps">
+        <div class="d-flex flex-column align-items-start p-toast-message-text" style="flex: 1">
+          <div class="d-flex align-items-center gap-2">
+            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
+            <span class="font-bold text-900 p-toast-summary">بانوی پاکدامن</span>
+          </div>
+          <div class="font-medium text-lg my-3 text-900 p-toast-detail">
+            {{ slotProps.message.summary }}
+          </div>
+          <PButton class="p-button-sm" label="بله" @click="onReply()" />
         </div>
-        <div class="font-medium text-lg my-3 text-900 p-toast-detail">
-          {{ slotProps.message.summary }}
+      </template>
+    </Toast>
+
+    <div class="page">
+      <div class="row">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">حالت‌های نمایش اعلان</h5>
+            <div class="card-text">
+              <div class="d-flex w-100 ai-center jc-center">
+                <div class="d-flex justify-content-around ai-center w-50">
+                  <PButton raised label="نمایش وضعیت" severity="success" @click="showSuccess" />
+                  <PButton raised label="نمایش وضعیت" severity="info" @click="showInfo" />
+                  <PButton raised label="نمایش وضعیت" severity="warning" @click="showWarn" />
+                  <PButton raised label="نمایش وضعیت" severity="danger" @click="showError" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <PButton class="p-button-sm" label="بله" @click="onReply()" />
       </div>
-    </template>
-  </Toast>
 
-  <section class="section">
-    <div class="row">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">حالت‌های نمایش اعلان</h5>
-          <div class="card-text">
-            <div class="d-flex w-100 ai-center jc-center">
-              <div class="d-flex justify-content-around ai-center w-50">
-                <PButton raised label="نمایش وضعیت" severity="success" @click="showSuccess" />
-                <PButton raised label="نمایش وضعیت" severity="info" @click="showInfo" />
-                <PButton raised label="نمایش وضعیت" severity="warning" @click="showWarn" />
-                <PButton raised label="نمایش وضعیت" severity="danger" @click="showError" />
+      <div class="row">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">شخصی سازی اعلان</h5>
+            <div class="card-text">
+              <div class="d-flex w-100 ai-center jc-center">
+                <div class="d-flex justify-content-around ai-center w-50">
+                  <PButton raised @click="showTemplate" label="نمایش پیشنهاد" />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">شخصی سازی اعلان</h5>
-          <div class="card-text">
-            <div class="d-flex w-100 ai-center jc-center">
-              <div class="d-flex justify-content-around ai-center w-50">
-                <PButton @click="showTemplate" label="نمایش پیشنهاد" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 </template>

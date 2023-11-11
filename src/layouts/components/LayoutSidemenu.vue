@@ -224,7 +224,7 @@ function expandActiveMenu(name: string) {
           <a class="sidebar-brand d-flex align-items-center justify-content-center offcanvas-body">
             <div class="sidebar-brand-icon rotate-n-15"></div>
 
-            <RouterLink class="sidebar-brand-text mx-3" to="'/home/dashboard'">
+            <RouterLink class="sidebar-brand-text mx-3" to="/home/dashboard">
               بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
             </RouterLink>
           </a>

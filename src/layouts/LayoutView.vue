@@ -68,8 +68,13 @@ onBeforeMount(() => {
           <!-- / Http error message -->
 
           <!-- route content viewbox -->
-          <div class="route-content container">
-            <RouterView />
+          <div class="view route-content container">
+            <!-- Pages animation -->
+            <RouterView v-slot="{ Component }">
+              <Transition name="fade" mode="out-in">
+                <component :is="Component" />
+              </Transition>
+            </RouterView>
           </div>
           <!-- / Route content viewbox -->
         </div>

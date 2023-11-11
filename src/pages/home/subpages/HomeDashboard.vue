@@ -1,11 +1,11 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
 
 <template>
-  <section>
+  <div class="page">
     <div class="content">
       <i class="content-logo mgc_walk_line"></i>
     </div>
-  </section>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,5 +1,7 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
 
 <template>
-  <RouterView />
+  <div class="view">
+    <RouterView />
+  </div>
 </template>
