@@ -8,15 +8,16 @@ import { computed } from 'vue'
 
 /** Sidemenu state. */
 const state = ref(true)
+
 /** Sidemenu offcanvas state. */
 const isOffcanvasSidemenu = ref(true)
+
+/** Sidemenu menu name. */
+const sidemenus = new BehaviorSubject<string>('')
 
 /** Handle sidemenu actions */
 export function useSidemenu() {
   const { isAuthenticated } = useAuthentication()
-
-  /** Sidemenu menu name. */
-  const sidemenus = new BehaviorSubject<string>('')
 
   /** Sidemenu close state. */
   const isClosedSidemenu = computed(() => state.value)

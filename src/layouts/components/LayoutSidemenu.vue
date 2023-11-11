@@ -13,10 +13,10 @@ const { sidemenus, isOffcanvasSidemenu, isClosedSidemenu, openSidemenu, closeSid
 /** List of menus. */
 const menuList = ref<Menu[]>(getMenuItems())
 
-const menuItems = ref<HTMLAnchorElement[] | []>([])
-const menuItemsOffcanvas = ref<HTMLInputElement[] | []>([])
-const subMenuItems = ref<HTMLUListElement[] | []>([])
-const subMenuItemsOffcanvas = ref<HTMLUListElement[] | []>([])
+const menuItem = ref<HTMLElement[] | []>([])
+const menuItemOffcanvas = ref<HTMLElement[] | []>([])
+const subMenuItem = ref<HTMLElement[] | []>([])
+const subMenuItemOffcanvas = ref<HTMLElement[] | []>([])
 
 onBeforeMount(() => {
   if (!isAuthenticated.value) closeSidemenu()
@@ -60,23 +60,23 @@ function getMenuItems(): Menu[] {
 /** Collapse active route menu */
 function collapseAllMenu() {
   /* Normal Mode */
-  menuItems.value.forEach((menuElement) => {
+  menuItem.value.forEach((menuElement) => {
     menuElement.setAttribute('aria-expanded', 'false')
     menuElement.classList.add('collapsed')
   })
 
-  subMenuItems.value.forEach((subMenuElement) => {
+  subMenuItem.value.forEach((subMenuElement) => {
     subMenuElement.classList.add('collapse')
     subMenuElement.classList.remove('show')
   })
 
   /* Offcanvas Mode */
-  menuItemsOffcanvas.value.forEach((menuElementOffcanvas) => {
+  menuItemOffcanvas.value.forEach((menuElementOffcanvas) => {
     menuElementOffcanvas.setAttribute('aria-expanded', 'false')
     menuElementOffcanvas.classList.add('collapsed')
   })
 
-  subMenuItemsOffcanvas.value.forEach((subMenuElementOffcanvas) => {
+  subMenuItemOffcanvas.value.forEach((subMenuElementOffcanvas) => {
     subMenuElementOffcanvas.classList.add('collapse')
     subMenuElementOffcanvas.classList.remove('show')
   })
@@ -85,9 +85,9 @@ function collapseAllMenu() {
 /** Expand active route menu */
 function expandActiveMenu(name: string) {
   /* Normal Mode */
-  const menuElement = menuItems.value.find((menuItem) => menuItem.id === name)
-  const subMenuElement = subMenuItems.value.find(
-    (menuItem: any) => menuItem.nativeElement['id'].split('-')[2] === name
+  const menuElement = menuItem.value.find((item) => item.getAttribute('id') === name)
+  const subMenuElement = subMenuItem.value.find(
+    (item: any) => item.getAttribute('id')?.split('-')[2] === name
   )
 
   if (menuElement && subMenuElement) {
@@ -99,9 +99,11 @@ function expandActiveMenu(name: string) {
   }
 
   /* Offcanvas Mode */
-  const menuElementOffcanvas = menuItemsOffcanvas.value.find((menuItem) => menuItem.id === name)
-  const subMenuElementOffcanvas = subMenuItemsOffcanvas.value.find(
-    (menuItem) => menuItem.id.split('-')[2] === name
+  const menuElementOffcanvas = menuItemOffcanvas.value.find(
+    (item) => item.getAttribute('id') === name
+  )
+  const subMenuElementOffcanvas = subMenuItemOffcanvas.value.find(
+    (item) => item.getAttribute('id')?.split('-')[2] === name
   )
 
   if (menuElementOffcanvas && subMenuElementOffcanvas) {
@@ -188,11 +190,11 @@ function expandActiveMenu(name: string) {
                 :id="'components-nav-' + menu.name"
               >
                 <li class="my-2" v-for="subMenu of menu.subMenu" :key="subMenu.name">
-                  <a @click="$router.push('/' + menu.name + '/' + subMenu.name)">
+                  <RouterLink :to="'/' + menu.name + '/' + subMenu.name" active-class="active">
                     <span class="p-2">
                       {{ subMenu.title }}
                     </span>
-                  </a>
+                  </RouterLink>
                 </li>
               </ul>
             </div>
@@ -222,9 +224,9 @@ function expandActiveMenu(name: string) {
           <a class="sidebar-brand d-flex align-items-center justify-content-center offcanvas-body">
             <div class="sidebar-brand-icon rotate-n-15"></div>
 
-            <a class="sidebar-brand-text mx-3" @click="$router.push('/home/dashboard')">
+            <RouterLink class="sidebar-brand-text mx-3" to="'/home/dashboard'">
               بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
-            </a>
+            </RouterLink>
           </a>
           <!--/ متن اصلی -->
 
@@ -261,11 +263,11 @@ function expandActiveMenu(name: string) {
                     :id="'components-nav-' + menu.name"
                   >
                     <li class="my-2" v-for="subMenu of menu.subMenu" :key="subMenu.name">
-                      <a @click="$router.push('/' + menu.name + '/' + subMenu.name)">
+                      <RouterLink :to="'/' + menu.name + '/' + subMenu.name" active-class="active">
                         <span class="p-2">
                           {{ subMenu.title }}
                         </span>
-                      </a>
+                      </RouterLink>
                     </li>
                   </ul>
                 </div>
@@ -517,6 +519,7 @@ a {
   margin: 0 1.3rem 0 1rem;
   list-style: none;
   transition: var(--main-transition);
+  cursor: pointer;
 }
 
 .sidebar-nav .nav-content a {

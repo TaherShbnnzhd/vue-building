@@ -68,10 +68,10 @@ function confirmSignout() {
   <header class="header py-1 px-4 d-flex align-items-center justify-content-between">
     <!-- mega menu -->
     <div class="menubar px-3">
-      <a class="home-botton fs-5 p-button-text p-button-rounded" @click="$router.push('/')">
+      <RouterLink to="/">
         <sub class="pb-1 sub-brand"></sub>
         <strong class="brand">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</strong>
-      </a>
+      </RouterLink>
     </div>
     <!-- / mega menu -->
     <div class="d-flex align-items-center justify-content-center me-1">
@@ -122,6 +122,7 @@ function confirmSignout() {
 
     .brand {
       letter-spacing: 1.3px;
+      cursor: pointer;
     }
 
     .sub-brand {
