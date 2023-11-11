@@ -68,7 +68,7 @@ function confirmSignout() {
   <header class="header py-1 px-4 d-flex align-items-center justify-content-between">
     <!-- mega menu -->
     <div class="menubar px-3">
-      <RouterLink to="/">
+      <RouterLink class="home-botton fs-5 p-button-text p-button-rounded" to="/">
         <sub class="pb-1 sub-brand"></sub>
         <strong class="brand">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</strong>
       </RouterLink>
