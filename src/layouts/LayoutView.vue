@@ -17,7 +17,7 @@ import { useKeepAlive } from '@/@core/services/UseKeepAlive'
 
 const { isOffcanvasSidemenu, isClosedSidemenu, setOffcanvasSidemenu } = useSidemenu()
 const { width } = useWindowResize()
-const { getComponents } = useKeepAlive()
+const { getAliveComponents } = useKeepAlive()
 
 /** Current application version. */
 const packageVersion = getCurrentInstance()?.appContext?.config?.globalProperties?.packageVersion
@@ -74,7 +74,7 @@ onBeforeMount(() => {
             <!-- Pages animation -->
             <RouterView v-slot="{ Component }">
               <Transition name="fade" mode="out-in">
-                <KeepAlive :include="getComponents().map((a) => a.name as string)">
+                <KeepAlive :include="getAliveComponents().map((a) => a.name as string)">
                   <component :is="Component" />
                 </KeepAlive>
               </Transition>

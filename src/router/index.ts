@@ -31,7 +31,8 @@ const router = createRouter({
               path: 'login',
               name: 'AccountLogin',
               meta: {
-                title: 'ورود'
+                title: 'ورود',
+                ignoreTab: true
               },
               component: () => import('../pages/account/AccountLogin.vue')
             }

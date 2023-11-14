@@ -12,16 +12,18 @@ const activePath = ref('')
 const tabs = ref<RouteLocationNormalized[]>([])
 
 const { currentTheme } = useTheme()
-const { getComponents, addComponent, removeComponent } = useKeepAlive()
+const { getAliveComponents, addAliveComponent, removeAliveComponent } = useKeepAlive()
 
-onMounted(() =>
+onMounted(() => {
+  tabs.value = getAliveComponents()
+
   router.afterEach((component) => {
     // Use component path as component unique name
-    addComponent(component)
-    tabs.value = getComponents()
+    addAliveComponent(component)
+    tabs.value = getAliveComponents()
     activePath.value = component.path
   })
-)
+})
 /**
  * Discrad component's path and navigate to prev or next tab or home
  * @param route tab path
@@ -31,7 +33,7 @@ function discardRoute(path: string) {
     const prevIndex = tabs.value.findIndex((activeTab) => activeTab.path === path) - 1
     const nextIndex = tabs.value.findIndex((activeTab) => activeTab.path === path)
 
-    removeComponent(path)
+    removeAliveComponent(path)
 
     if (activePath.value === path)
       if (nextIndex < tabs.value.length) router.push(tabs.value[nextIndex].path)

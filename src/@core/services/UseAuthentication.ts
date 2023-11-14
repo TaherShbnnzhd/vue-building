@@ -4,20 +4,23 @@ import { ref } from 'vue'
 
 import { Observable, of } from 'rxjs'
 import { delay } from 'rxjs/operators'
+import { useKeepAlive } from './UseKeepAlive'
 
 /** Store the URL so we can redirect after logging in */
 const redirectUrl = ref('/')
 
 /** User authorization state */
-const isAuthenticated = ref(!!getAuthorizationToken())
-
-/** Return token if exists */
-function getAuthorizationToken() {
-  return sessionStorage.getItem('TOKEN') || localStorage.getItem('TOKEN') || ''
-}
+const isAuthenticated = ref(false)
 
 /** Handle authentication like token, login and logout */
 export function useAuthentication() {
+  const { clearAliveComponents } = useKeepAlive()
+
+  /** Return token if exists */
+  function getAuthorizationToken() {
+    return sessionStorage.getItem('TOKEN') || localStorage.getItem('TOKEN') || ''
+  }
+
   /**
    *  Set token if exists
    * @param token token
@@ -42,6 +45,7 @@ export function useAuthentication() {
 
   /** Try to log out */
   function logOut() {
+    clearAliveComponents()
     sessionStorage.clear()
     localStorage.clear()
     isAuthenticated.value = false
