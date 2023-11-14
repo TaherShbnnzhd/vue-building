@@ -5,6 +5,7 @@ import { useAuthentication } from '@core/services/UseAuthentication'
 import { ref, onBeforeMount, onMounted } from 'vue'
 import { useSidemenu } from '../services/UseSidemenu'
 import type { Menu } from '../LayoutTypes'
+import LayoutTabBar from './LayoutTabBar.vue'
 
 const { isAuthenticated } = useAuthentication()
 const { sidemenus, isOffcanvasSidemenu, isClosedSidemenu, openSidemenu, closeSidemenu } =
@@ -51,6 +52,10 @@ function getMenuItems(): Menu[] {
           {
             name: 'toast',
             title: 'اعلان'
+          },
+          {
+            name: 'form',
+            title: 'فرم'
           }
         ]
       }
@@ -127,7 +132,7 @@ function expandActiveMenu(name: string) {
         'tab-content-close': !isAuthenticated
       }"
     >
-      <!-- <block-active-tabs-bar></block-active-tabs-bar> -->
+      <LayoutTabBar />
     </div>
 
     <div class="toggle-panel p-2">
@@ -304,7 +309,7 @@ a {
   .toggle-panel-active-tabs {
     position: fixed;
     left: 2px;
-    top: calc(var(--header-height) + 0.7rem);
+    top: calc(var(--header-height) + 0.58rem);
     transition: var(--main-transition);
 
     &.tab-content-wide {
@@ -336,7 +341,7 @@ a {
     &:after {
       content: '';
       position: absolute;
-      left: 35px;
+      left: 42px;
       height: 30px;
       width: 30px;
       box-shadow: 0 13px 0 0 var(--sidemenu-main-color);
@@ -357,12 +362,14 @@ a {
 
   .toggle-panel {
     position: relative;
-    text-align: center;
-    width: 65px;
-    height: var(--header-height);
+    width: 72px;
+    height: calc(var(--toolbar-height) - 0.5rem);
     float: left;
-    padding: 0;
-    left: -2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
 
     .toggle-panel-button {
       cursor: pointer;
@@ -376,6 +383,7 @@ a {
         background-color: var(--sidemenu-main-color);
         height: 3rem;
         border-left: 2px solid var(--main-color);
+        padding: 0 0.5rem;
 
         &.no-icon {
           display: none;
@@ -532,14 +540,14 @@ a {
 }
 
 .sidebar-nav .nav-content a::before {
-  content: '\ee05';
+  content: '\F0B3';
   font-family: 'MingCute';
-  font-size: 12px;
+  font-size: 10px;
   margin-right: 13px;
 }
 
 .sidebar-nav .nav-content a.active::before {
-  content: '\ee04';
+  content: '\F0B2';
 }
 
 .sidebar-nav .nav-content a:hover,

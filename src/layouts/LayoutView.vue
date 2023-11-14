@@ -13,9 +13,11 @@ import LayoutSidemenu from './components/LayoutSidemenu.vue'
 import LayoutLoading from './components/LayoutLoading.vue'
 
 import Toast from 'primevue/toast'
+import { useKeepAlive } from '@/@core/services/UseKeepAlive'
 
 const { isOffcanvasSidemenu, isClosedSidemenu, setOffcanvasSidemenu } = useSidemenu()
 const { width } = useWindowResize()
+const { getComponents } = useKeepAlive()
 
 /** Current application version. */
 const packageVersion = getCurrentInstance()?.appContext?.config?.globalProperties?.packageVersion
@@ -68,11 +70,13 @@ onBeforeMount(() => {
           <!-- / Http error message -->
 
           <!-- route content viewbox -->
-          <div class="view route-content container">
+          <div class="view route-content px-5 py-4">
             <!-- Pages animation -->
             <RouterView v-slot="{ Component }">
               <Transition name="fade" mode="out-in">
-                <component :is="Component" />
+                <KeepAlive :include="getComponents().map((a) => a.name as string)">
+                  <component :is="Component" />
+                </KeepAlive>
               </Transition>
             </RouterView>
           </div>
@@ -103,13 +107,13 @@ main {
     margin: 0 0 0 0;
 
     .compact-header {
-      :deep(.home-botton) {
+      .home-botton {
         padding-right: var(--sidemenu-width);
       }
     }
 
     .compact-footer {
-      :deep(.copy-right) {
+      .copy-right {
         padding-right: var(--sidemenu-width);
       }
     }

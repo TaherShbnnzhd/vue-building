@@ -32,7 +32,7 @@
   --main-card-background: #fff;
   --main-card-color: #575757;
   --main-card-border-color: #e1e1f7;
-  --main-card-shadow: rgba(1, 7, 114, 0.1) 0px 25px 20px -20px;
+  --main-card-shadow: rgba(1, 7, 114, 0.1) 0px 20px 13px -8px;
   --main-card-hover-shadow: 0 0 0 1px #4a4a4a, 0 0 0 4px transparent,
     0 2px 12px 0 rgba(96, 101, 105, 0.2);
 

@@ -90,34 +90,32 @@ const onClose = () => {
       </template>
     </Toast>
 
-    <div class="page">
-      <div class="row">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">حالت‌های نمایش اعلان</h5>
-            <div class="card-text">
-              <div class="d-flex w-100 ai-center jc-center">
-                <div class="d-flex justify-content-around ai-center w-50">
-                  <PButton raised label="نمایش وضعیت" severity="success" @click="showSuccess" />
-                  <PButton raised label="نمایش وضعیت" severity="info" @click="showInfo" />
-                  <PButton raised label="نمایش وضعیت" severity="warning" @click="showWarn" />
-                  <PButton raised label="نمایش وضعیت" severity="danger" @click="showError" />
-                </div>
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">حالت‌های نمایش اعلان</h5>
+          <div class="card-text">
+            <div class="d-flex w-100 ai-center jc-center">
+              <div class="d-flex justify-content-around ai-center w-50">
+                <PButton raised label="نمایش وضعیت" severity="success" @click="showSuccess" />
+                <PButton raised label="نمایش وضعیت" severity="info" @click="showInfo" />
+                <PButton raised label="نمایش وضعیت" severity="warning" @click="showWarn" />
+                <PButton raised label="نمایش وضعیت" severity="danger" @click="showError" />
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">شخصی سازی اعلان</h5>
-            <div class="card-text">
-              <div class="d-flex w-100 ai-center jc-center">
-                <div class="d-flex justify-content-around ai-center w-50">
-                  <PButton raised @click="showTemplate" label="نمایش پیشنهاد" />
-                </div>
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">شخصی سازی اعلان</h5>
+          <div class="card-text">
+            <div class="d-flex w-100 ai-center jc-center">
+              <div class="d-flex justify-content-around ai-center w-50">
+                <PButton raised @click="showTemplate" label="نمایش پیشنهاد" />
               </div>
             </div>
           </div>

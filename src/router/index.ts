@@ -8,16 +8,12 @@ import {
 } from 'vue-router'
 import { authenticationGuard } from './authenticationGuard'
 import { useSidemenu } from '@/layouts/services/UseSidemenu'
-import { useToast } from 'primevue/usetoast'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      meta: {
-        title: 'بنا'
-      },
       // route level code-splitting
       // this generates a separate chunk (MainLayout.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -27,56 +23,62 @@ const router = createRouter({
         {
           path: 'account',
           meta: {
-            title: 'بنا | کاربری'
+            title: 'کاربری'
           },
-          component: () =>
-            import(/* webpackChunkName: "account-module" */ '../pages/account/AccountView.vue'),
           children: [
             { path: '/', redirect: '/account/login' },
             {
               path: 'login',
+              name: 'AccountLogin',
               meta: {
-                title: 'بنا | ورود'
+                title: 'ورود'
               },
-              component: () => import('../pages/account/subpages/AccountLogin.vue')
+              component: () => import('../pages/account/AccountLogin.vue')
             }
           ]
         },
         {
           path: 'home',
           meta: {
-            title: 'بنا | صفحه اصلی'
+            title: 'صفحه اصلی'
           },
-          component: () =>
-            import(/* webpackChunkName: "home-module" */ '../pages/home/HomeView.vue'),
           beforeEnter: [authenticationGuard],
           children: [
             { path: '/', redirect: '/home/dashboard' },
             {
               path: 'dashboard',
+              name: 'HomeDashboard',
               meta: {
-                title: 'بنا | داشبورد'
+                title: 'داشبورد',
+                ignoreTab: true
               },
-              component: () => import('../pages/home/subpages/HomeDashboard.vue')
+              component: () => import('../pages/home/HomeDashboard.vue')
             }
           ]
         },
         {
           path: 'showcase',
           meta: {
-            title: 'بنا | پیش نمایش'
+            title: 'پیش نمایش'
           },
-          component: () =>
-            import(/* webpackChunkName: "showcase-module" */ '../pages/showcase/ShowcaseView.vue'),
           beforeEnter: [authenticationGuard],
           children: [
             { path: '/', redirect: '/showcase/toast' },
             {
               path: 'toast',
+              name: 'ShowcaseToast',
               meta: {
-                title: 'بنا | اعلان'
+                title: 'اعلان'
               },
-              component: () => import('../pages/showcase/subpages/ShowcaseToast.vue')
+              component: () => import('../pages/showcase/ShowcaseToast.vue')
+            },
+            {
+              path: 'form',
+              name: 'ShowcaseForm',
+              meta: {
+                title: 'فرم'
+              },
+              component: () => import('../pages/showcase/ShowcaseForm.vue')
             }
           ]
         }
@@ -89,14 +91,14 @@ const { sidemenus } = useSidemenu()
 
 router.afterEach((to, from, failure) => {
   // Assigning page title to different routes
-  window.document.title = (to.meta['title'] as string) || 'بنا'
+  window.document.title = `بنا | ${(to.meta['title'] as string) || 'خانه'}`
 
   // Highlight route menu in sidemenu if exists
   sidemenus.next(to.path.split('/')[1])
 
   // Detecting navigation failures
   if (isNavigationFailure(failure, NavigationFailureType.aborted))
-    console.error('Login in order to access the admin panel')
+    console.warn('** Login in order to access the admin panel')
 })
 
 export default router
