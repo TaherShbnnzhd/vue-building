@@ -15,8 +15,12 @@ const { currentTheme } = useTheme()
 const { getAliveComponents, addAliveComponent, removeAliveComponent } = useKeepAlive()
 
 onMounted(() => {
+  // Get inital route component
+  addAliveComponent(router.currentRoute.value)
   tabs.value = getAliveComponents()
+  activePath.value = router.currentRoute.value.path
 
+  // Get component after each successful routing
   router.afterEach((component) => {
     // Use component path as component unique name
     addAliveComponent(component)

@@ -47,7 +47,7 @@ function getMenuItems(): Menu[] {
       {
         name: 'showcase',
         title: 'پیش نمایش',
-        icon: 'mgc_palette_2_line',
+        icon: 'mgc_building_2_fill',
         subMenu: [
           {
             name: 'toast',

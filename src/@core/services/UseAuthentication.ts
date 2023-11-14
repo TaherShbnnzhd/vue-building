@@ -10,16 +10,16 @@ import { useKeepAlive } from './UseKeepAlive'
 const redirectUrl = ref('/')
 
 /** User authorization state */
-const isAuthenticated = ref(false)
+const isAuthenticated = ref(!!getAuthorizationToken())
+
+/** Return token if exists */
+function getAuthorizationToken() {
+  return sessionStorage.getItem('TOKEN') || localStorage.getItem('TOKEN') || ''
+}
 
 /** Handle authentication like token, login and logout */
 export function useAuthentication() {
   const { clearAliveComponents } = useKeepAlive()
-
-  /** Return token if exists */
-  function getAuthorizationToken() {
-    return sessionStorage.getItem('TOKEN') || localStorage.getItem('TOKEN') || ''
-  }
 
   /**
    *  Set token if exists
