@@ -7,3 +7,4 @@
 /* ANIMATIONS */
 /* Fade in and out animation */
 @import './animation/fade.css';
+@import './animation/slide-up.css';

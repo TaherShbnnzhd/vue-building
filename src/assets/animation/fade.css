@@ -6,8 +6,8 @@
 }
 
 .fade-enter-active {
-  transition: opacity 200ms ease-out;
+  transition: opacity 200ms ease-in-out;
 }
 .fade-leave-active {
-  transition: opacity 13ms ease-in;
+  transition: opacity 130ms ease-out;
 }

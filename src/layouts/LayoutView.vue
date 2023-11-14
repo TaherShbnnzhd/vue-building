@@ -73,7 +73,7 @@ onBeforeMount(() => {
           <div class="view route-content px-5 py-4">
             <!-- Pages animation -->
             <RouterView v-slot="{ Component }">
-              <Transition name="fade" mode="out-in">
+              <Transition name="slide-up" mode="out-in">
                 <KeepAlive :include="getAliveComponents().map((a) => a.name as string)">
                   <component :is="Component" />
                 </KeepAlive>
