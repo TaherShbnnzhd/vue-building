@@ -82,7 +82,7 @@ const signIn = handleSubmit((loginForm) => {
           <div class="row">
             <div class="col-md-12 col-xl-7 order-2 order-lg-1 bordered-box">
               <form class="py-xl-4 p-lg-3 p-md-2 p-2" @submit.prevent="signIn" novalidate>
-                <div class="form-group px-xl-3">
+                <div class="form-group px-xl-4">
                   <div class="field">
                     <label for="username" class="text-600 font-medium mb-2 ms-1">
                       نام کاربری
@@ -146,7 +146,7 @@ const signIn = handleSubmit((loginForm) => {
                   <div class="w-100 text-end pt-3 d-flex jc-center ai-center">
                     <PButton
                       rounded
-                      class="submit-button w-100 shadow-2 p-button-primary"
+                      class="submit-button w-100 p-button-primary"
                       icon="pi pi-user"
                       type="submit"
                       label="ورود"
