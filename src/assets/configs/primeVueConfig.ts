@@ -1,6 +1,6 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
-export const primeVueConfiguration = {
+export const primeVueConfig = {
   ripple: true,
   inputStyle: 'filled',
   locale: {

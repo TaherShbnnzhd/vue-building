@@ -3,7 +3,7 @@
 import { ref } from 'vue'
 import { BehaviorSubject } from 'rxjs'
 
-import { useAuthentication } from '@core/services/UseAuthentication'
+import { useAuth } from '@core/services/UseAuth'
 import { computed } from 'vue'
 
 /** Sidemenu state. */
@@ -17,7 +17,7 @@ const sidemenus = new BehaviorSubject<string>('')
 
 /** Handle sidemenu actions */
 export function useSidemenu() {
-  const { isAuthenticated } = useAuthentication()
+  const { isAuthenticated } = useAuth()
 
   /** Sidemenu close state. */
   const isClosedSidemenu = computed(() => state.value)

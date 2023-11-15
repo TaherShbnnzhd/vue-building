@@ -6,7 +6,7 @@ import {
   createWebHistory,
   isNavigationFailure
 } from 'vue-router'
-import { authenticationGuard } from './authenticationGuard'
+import { authGuard } from '@core/guard/authGuard'
 import { useSidemenu } from '@/layouts/services/UseSidemenu'
 
 const router = createRouter({
@@ -43,7 +43,7 @@ const router = createRouter({
           meta: {
             title: 'صفحه اصلی'
           },
-          beforeEnter: [authenticationGuard],
+          beforeEnter: [authGuard],
           children: [
             { path: '/', redirect: '/home/dashboard' },
             {
@@ -62,7 +62,7 @@ const router = createRouter({
           meta: {
             title: 'پیش نمایش'
           },
-          beforeEnter: [authenticationGuard],
+          beforeEnter: [authGuard],
           children: [
             { path: '/', redirect: '/showcase/toast' },
             {

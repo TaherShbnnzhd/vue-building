@@ -1,5 +1,4 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
-
 <template>
   <!-- Intro animation -->
   <div class="view">

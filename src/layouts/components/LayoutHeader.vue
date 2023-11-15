@@ -4,7 +4,7 @@
 import { computed, ref } from 'vue'
 
 import { useTheme } from '@core/services/UseTheme'
-import { useAuthentication } from '@core/services/UseAuthentication'
+import { useAuth } from '@core/services/UseAuth'
 import { useSidemenu } from '../services/UseSidemenu'
 
 import { useConfirm } from 'primevue/useconfirm'
@@ -12,7 +12,7 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import router from '@/router'
 
 const { currentTheme, switchTheme } = useTheme()
-const { logOut, isAuthenticated } = useAuthentication()
+const { logOut, isAuthenticated } = useAuth()
 const { closeSidemenu } = useSidemenu()
 const confirm = useConfirm()
 

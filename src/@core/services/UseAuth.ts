@@ -18,7 +18,7 @@ function getAuthorizationToken() {
 }
 
 /** Handle authentication like token, login and logout */
-export function useAuthentication() {
+export function useAuth() {
   const { clearAliveComponents } = useKeepAlive()
 
   /**

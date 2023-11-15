@@ -10,10 +10,10 @@ import Password from 'primevue/password'
 import Checkbox from 'primevue/checkbox'
 import InputText from 'primevue/inputtext'
 
-import { useAuthentication } from '@core/services/UseAuthentication'
+import { useAuth } from '@core/services/UseAuth.js'
 import { useTheme } from '@core/services/UseTheme'
 import { useSidemenu } from '@/layouts/services/UseSidemenu'
-import { usePersianNumber } from '@shared/utils/usePersianNumber'
+import { usePersianNumber } from '@/@shared/utils/UsePersianNumber.js'
 
 import { useToast } from 'primevue/usetoast'
 
@@ -27,7 +27,7 @@ interface LoginForm {
 }
 
 const { currentTheme } = useTheme()
-const { redirectUrl, logIn, setAuthorizationToken } = useAuthentication()
+const { redirectUrl, logIn, setAuthorizationToken } = useAuth()
 const { toEnglish, toPersian } = usePersianNumber()
 const { openSidemenu } = useSidemenu()
 const toast = useToast()

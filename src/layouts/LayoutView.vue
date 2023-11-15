@@ -13,7 +13,7 @@ import LayoutSidemenu from './components/LayoutSidemenu.vue'
 import LayoutLoading from './components/LayoutLoading.vue'
 
 import Toast from 'primevue/toast'
-import { useKeepAlive } from '@/@core/services/UseKeepAlive'
+import { useKeepAlive } from '@core/services/UseKeepAlive'
 
 const { isOffcanvasSidemenu, isClosedSidemenu, setOffcanvasSidemenu } = useSidemenu()
 const { width } = useWindowResize()
@@ -36,6 +36,10 @@ onBeforeMount(() => {
 
 <template>
   <main>
+    <!-- http error message -->
+    <Toast position="bottom-left" group="HttpErrorMessage" />
+    <!-- / Http error message -->
+
     <div class="container-fluid">
       <!-- Header -->
       <LayoutHeader />
@@ -64,10 +68,6 @@ onBeforeMount(() => {
             <LayoutLoading :loading="loading" />
           </div>
           <!-- / Page loading screen -->
-
-          <!-- http error message -->
-          <Toast position="bottom-left" />
-          <!-- / Http error message -->
 
           <!-- route content viewbox -->
           <div class="view route-content px-5 py-4">

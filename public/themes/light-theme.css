@@ -24,7 +24,7 @@
 --------------------------------------------------------------*/
 :root {
   --main-color: #f4f7ff;
-  --main-hilight-color: #00328A;
+  --main-hilight-color: #00328a;
   --main-item-color: #bbc5e2;
 
   --loading-element-color: #003ef8;
@@ -42,8 +42,7 @@
 
   --main-gradiant: linear-gradient(25deg, #dae4ff, #fff 85%);
 
-  --main-box-shadow: rgba(1, 7, 114, 0.05) 0px -2px 14px 1px,
-    rgba(1, 7, 114, 0.05) 0px 2px 5px 1px;
+  --main-box-shadow: rgba(1, 7, 114, 0.05) 0px -2px 14px 1px, rgba(1, 7, 114, 0.05) 0px 2px 5px 1px;
 }
 
 label {

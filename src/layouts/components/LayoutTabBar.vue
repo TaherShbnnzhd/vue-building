@@ -1,8 +1,8 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
 
 <script lang="ts" setup>
-import { useKeepAlive } from '@/@core/services/UseKeepAlive'
-import { useTheme } from '@/@core/services/UseTheme'
+import { useKeepAlive } from '@core/services/UseKeepAlive'
+import { useTheme } from '@core/services/UseTheme'
 import router from '@/router'
 import Toolbar from 'primevue/toolbar'
 import { onMounted, ref } from 'vue'

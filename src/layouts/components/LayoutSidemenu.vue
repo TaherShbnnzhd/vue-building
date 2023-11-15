@@ -1,13 +1,13 @@
 <!-- /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */ -->
 
 <script lang="ts" setup>
-import { useAuthentication } from '@core/services/UseAuthentication'
+import { useAuth } from '@core/services/UseAuth'
 import { ref, onBeforeMount, onMounted } from 'vue'
 import { useSidemenu } from '../services/UseSidemenu'
-import type { Menu } from '../LayoutTypes'
+import type { Menu } from '../types'
 import LayoutTabBar from './LayoutTabBar.vue'
 
-const { isAuthenticated } = useAuthentication()
+const { isAuthenticated } = useAuth()
 const { sidemenus, isOffcanvasSidemenu, isClosedSidemenu, openSidemenu, closeSidemenu } =
   useSidemenu()
 

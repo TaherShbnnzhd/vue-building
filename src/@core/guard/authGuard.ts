@@ -1,11 +1,11 @@
 /* بِسْمِ اللهِ الرَّحْمنِ الرَّحِیم */
 
-import { useAuthentication } from '@core/services/UseAuthentication'
+import { useAuth } from '@core/services/UseAuth'
 import type { RouteLocationNormalized } from 'vue-router'
-import router from '.'
+import router from '../../router'
 
-export const authenticationGuard = (to: RouteLocationNormalized) => {
-  const { isAuthenticated, redirectUrl } = useAuthentication()
+export const authGuard = (to: RouteLocationNormalized) => {
+  const { isAuthenticated, redirectUrl } = useAuth()
 
   if (isAuthenticated.value) return true
   else {

@@ -23,7 +23,14 @@ import ToastService from 'primevue/toastservice'
 import DialogService from 'primevue/dialogservice'
 import Button from 'primevue/button'
 
-import { primeVueConfiguration } from './assets/configuration/primeVue'
+import { primeVueConfig } from './assets/configs/primeVueConfig'
+
+import { loadRuntimeConfiguration, runtimeConfiguration } from '@core/plugins/runtimeConfiguration'
+
+// Since fetch is asynchronous,
+// the application is mounted after the data has been gathered successfully.
+// This way, we make sure the configuration is loaded to prevent incoherent state in the application.
+const runtimeConfigurationOptions = await loadRuntimeConfiguration()
 
 const app = createApp(App)
 
@@ -31,7 +38,9 @@ app.use(createPinia())
 app.use(router)
 
 // Plugins
-app.use(PrimeVue, primeVueConfiguration)
+app.use(runtimeConfiguration, runtimeConfigurationOptions)
+
+app.use(PrimeVue, primeVueConfig)
 app.use(ConfirmationService)
 app.use(ToastService)
 app.use(DialogService)
