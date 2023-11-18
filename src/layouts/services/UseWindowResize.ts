@@ -2,9 +2,13 @@
 
 import { ref, onMounted, onUnmounted } from 'vue'
 
+/** Handle windows width and height */
 export function useWindowResize() {
-  const width = ref(window.innerWidth)
+  /** Windows height */
   const height = ref(window.innerHeight)
+
+  /** Windows width */
+  const width = ref(window.innerWidth)
 
   function handler() {
     width.value = window.innerWidth

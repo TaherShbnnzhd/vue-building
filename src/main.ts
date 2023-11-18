@@ -2,14 +2,7 @@
 
 import './assets/main.css'
 
-import 'bootstrap/dist/css/bootstrap.rtl.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import 'bootstrap-icons/font/bootstrap-icons.min.css'
-
-import 'primevue/resources/primevue.min.css'
-import 'primeicons/primeicons.css'
-
-import 'mingcute_icon/font/Mingcute.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -22,6 +15,7 @@ import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
 import DialogService from 'primevue/dialogservice'
 import Button from 'primevue/button'
+import Toast from 'primevue/toast'
 
 import { primeVueConfig } from './assets/configs/primeVueConfig'
 
@@ -47,6 +41,8 @@ app.use(DialogService)
 
 // Components
 app.component('PButton', Button)
+// eslint-disable-next-line vue/multi-word-component-names
+app.component('Toast', Toast)
 
 app.mount('#app')
 

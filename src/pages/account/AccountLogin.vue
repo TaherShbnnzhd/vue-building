@@ -463,10 +463,6 @@ main {
   color: var(--main-hilight-color) !important;
 }
 
-.font-medium {
-  font-weight: 400 !important;
-}
-
 .text-900 {
   color: var(--sidemenu-item-color) !important;
 }

@@ -29,7 +29,7 @@ watch(width, (newWidth) => setOffcanvasSidemenu(newWidth < 991))
 
 onBeforeMount(() => {
   setOffcanvasSidemenu(width.value < 991)
-  router.afterEach(() => (loading.value = true))
+  router.beforeEach(() => (loading.value = true))
   router.afterEach(() => (loading.value = false))
 })
 </script>
@@ -70,7 +70,7 @@ onBeforeMount(() => {
           <!-- / Page loading screen -->
 
           <!-- route content viewbox -->
-          <div class="view route-content px-5 py-4">
+          <div class="view route-content px-5 pt-3 pb-4">
             <!-- Pages animation -->
             <RouterView v-slot="{ Component }">
               <Transition name="slide-up" mode="out-in">

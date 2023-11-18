@@ -4,6 +4,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import './base.scss';
 
+@import 'bootstrap/dist/css/bootstrap.rtl.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.min.css';
+@import 'primevue/resources/primevue.min.css';
+@import 'primeicons/primeicons.css';
+@import 'mingcute_icon/font/Mingcute.css';
+
 /* ANIMATIONS */
 /* Fade in and out animation */
 @import './animations/fade.css';
