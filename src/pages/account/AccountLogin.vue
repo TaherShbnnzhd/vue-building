@@ -13,7 +13,7 @@ import InputText from 'primevue/inputtext'
 import { useAuth } from '@core/services/UseAuth.js'
 import { useTheme } from '@core/services/UseTheme'
 import { useSidemenu } from '@/layouts/services/UseSidemenu'
-import { usePersianNumber } from '@/@shared/utils/UsePersianNumber.js'
+import { usePersianNumber } from '@shared/utils/UsePersianNumber.js'
 
 import { useToast } from 'primevue/usetoast'
 
@@ -120,9 +120,7 @@ const signIn = handleSubmit((loginForm) => {
                     }}</small>
                   </div>
 
-                  <div
-                    class="d-flex align-items-center justify-content-between mt-md-4 mb-md-1 mx-1"
-                  >
+                  <div class="d-flex align-items-center justify-content-between mt-md-4 mx-1">
                     <!-- remember me -->
                     <div class="d-flex flex-row-reverse align-items-center ms-1">
                       <label for="rememberMe" class="text-900">

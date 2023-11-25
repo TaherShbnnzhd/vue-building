@@ -29,7 +29,7 @@ export function useHttpErrorHandler() {
 
   /**
    * Create curried handleError function that already knows the service name
-   * @tip If `T` didnt mentioned,the compiler will figure out based on the value passed in
+   * @tip If `T` didnt mentioned, the compiler will figure out based on the value passed in.
    */
   const createHandleError =
     (serviceName = '') =>
