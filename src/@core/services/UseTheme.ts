@@ -11,6 +11,7 @@ export function useTheme() {
   const primevue = usePrimeVue()
   /**
    * Switch theme between loaded primeNG themes
+   *
    * @param theme theme bundle name
    */
   function switchTheme(theme: 'light-theme' | 'dark-theme') {

@@ -23,6 +23,7 @@ export function useAuth() {
 
   /**
    *  Set token if exists
+   *
    * @param token token
    * @param localStorageMode save in local storage
    */
@@ -36,6 +37,7 @@ export function useAuth() {
 
   /**
    * Try to log in
+   *
    * @param username username
    * @param password password
    */

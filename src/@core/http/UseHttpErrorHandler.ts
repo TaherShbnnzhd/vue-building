@@ -6,12 +6,6 @@ import { usePersianNumber } from '@/@shared/utils/UsePersianNumber'
 import { useToast } from 'primevue/usetoast'
 import { useLogger } from '../services/UseLogger'
 
-/* TIP: 
- One major difference between `type` aliases vs `interfaces`
- are that `interfaces` are open and `type` aliases are closed.
- This means you can extend an `interface` by declaring it a second time.
- In the other case a `type` cannot be changed outside of its declaration. */
-
 /**
  * Type of the handleError function returned by
  * HttpErrorHandler.createHandleError
@@ -29,6 +23,7 @@ export function useHttpErrorHandler() {
 
   /**
    * Create curried handleError function that already knows the service name
+   *
    * @tip If `T` didnt mentioned, the compiler will figure out based on the value passed in.
    */
   const createHandleError =

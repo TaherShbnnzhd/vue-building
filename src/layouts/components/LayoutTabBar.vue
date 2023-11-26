@@ -30,6 +30,7 @@ onMounted(() => {
 })
 /**
  * Discrad component's path and navigate to prev or next tab or home
+ *
  * @param route tab path
  */
 function discardRoute(path: string) {

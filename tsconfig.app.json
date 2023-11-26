@@ -5,6 +5,7 @@
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
+    "preserveSymlinks": false,
     "composite": true,
     "baseUrl": "./",
     "paths": {

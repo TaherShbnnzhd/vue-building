@@ -10,9 +10,14 @@ import InputSwitch from 'primevue/inputswitch'
 
 import { ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
+import { tap } from 'rxjs'
+import { useHttp } from '@core/http/UseHttp'
+import { User } from '@/@shared/models/baseResponse'
 
 const toast = useToast()
+const { httpGET } = useHttp()
 
+const loading = ref(false)
 const firstname = ref('')
 const lastname = ref('')
 const bio = ref('')
@@ -37,13 +42,19 @@ const countries = ref([
 ])
 
 const onSubmit = () => {
-  toast.add({
-    severity: 'success',
-    summary: 'با موفقیت انجام شد.',
-    detail: 'عملیات',
-    group: 'ShowcaseForm',
-    life: 8500
-  })
+  loading.value = true
+  httpGET<User[]>(User.API_ADDRESS)
+    .pipe(tap(() => (loading.value = false)))
+    .subscribe((response) => {
+      if (response?.length)
+        toast.add({
+          severity: 'success',
+          summary: 'با موفقیت انجام شد.',
+          detail: 'عملیات',
+          group: 'ShowcaseForm',
+          life: 8500
+        })
+    })
 }
 </script>
 

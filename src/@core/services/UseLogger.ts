@@ -9,6 +9,7 @@ const logMessages = ref<string[]>([])
 export function useLogger() {
   /**
    * Add message to message pool
+   *
    * @param message = string message
    */
   function addLogMessage(message: string): void {

@@ -30,6 +30,7 @@ const darkmode = computed({
 
 /**
  *  Switch theme between dark and light mode
+ *
  * @param event event
  * @param theme theme's name
  * @param dark darkmode
